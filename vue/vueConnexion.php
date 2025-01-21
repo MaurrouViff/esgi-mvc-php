@@ -6,6 +6,6 @@
     <label for="mot_de_passe">Mot de passe:</label>
     <input type="password" id="mot_de_passe" name="mot_de_passe" required>
 
-    <button type="submit" name="action" value="login">Se connecter</button>
-    <button type="submit" name="action" value="register">S'inscrire</button>
+    <button type="submit" name="action" value="login" class="input-blue">Se connecter</button>
+    <button type="submit" name="action" value="register" class="input-red">S'inscrire</button>
 </form>
