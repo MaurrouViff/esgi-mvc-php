@@ -6,6 +6,7 @@ class MainController {
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
         "authentification" => "authentification.php",
+        "logout" => "logout.php",
     );
 
 

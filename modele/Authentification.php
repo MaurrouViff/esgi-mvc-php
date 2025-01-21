@@ -48,16 +48,22 @@ class Authentification {
         return "Inscription réussie.";
     }
 
-    public static function login(string $nom, string $motDePasse): string {
+    public static function login(string $nom, string $motDePasse): array {
         $data = self::readJson();
-
 
         foreach ($data['users'] as $user) {
             if ($user['nom'] === $nom && $user['mot_de_passe'] === $motDePasse) {
-                return "Connexion réussie.";
+                return [
+                    "status" => "success",
+                    "message" => "Connexion réussie.",
+                    "user" => $user
+                ];
             }
         }
 
-        return "Nom d'utilisateur ou mot de passe incorrect.";
+        return [
+            "status" => "error",
+            "message" => "Nom d'utilisateur ou mot de passe incorrect."
+        ];
     }
 }
