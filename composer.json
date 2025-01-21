@@ -1,5 +1,9 @@
 {
     "require-dev": {
         "vimeo/psalm": "^5.26"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "vlucas/phpdotenv": "^5.6"
     }
 }
