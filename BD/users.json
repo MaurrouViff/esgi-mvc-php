@@ -1,13 +1,17 @@
 {
     "exemples_de_données": {
-        "id": "Identifiant unique de l'utilisateur (ex. 1)",
-        "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
-        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')",
-        "friend_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8)",
+        "id": "Identifiant unique de l'utilisateur (ex. 1) [Type: Integer]",
+        "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont') [Type: String]",
+        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123') [Type: String]",
+        "friend_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8) [Type: Array of Integers]",
+        "friend_id_resquest": "Identifiant unique de l'ami de l'utilisateur qui a envoyé une demande d'ami (ex. 3,6,9) [Type: Array of Integers]",
         "films": [
             {
-                "id": "Identifiant unique du film (ex. 1)",
-                "note": "Note attribuée par l'utilisateur au film (ex. 5)"
+                "id": "Identifiant unique du film (ex. 1) [Type: Integer]",
+                "note": "Note attribuée par l'utilisateur au film (ex. 5) [Type: Integer]",
+                "isfavori": "Indique si le film est un favori de l'utilisateur (ex. true) [Type: Boolean]",
+                "planToWatch": "Indique si l'utilisateur prévoit de regarder le film (ex. true) [Type: Boolean]",
+                "isWatch": "Indique si l'utilisateur a regardé le film (ex. false) [Type: Boolean]"
             }
         ]
     },
@@ -17,14 +21,21 @@
             "nom": "a",
             "mot_de_passe": "",
             "friend_id": [],
+            "friend_id_resquest": [],
             "films": [
                 {
                     "id": 1,
-                    "note": 5
+                    "note": 5,
+                    "isFavori": true,
+                    "planToWatch": true,
+                    "isWatch": false
                 },
                 {
                     "id": 2,
-                    "note": 4
+                    "note": 4,
+                    "isfavori": false,
+                    "planToWatch": true,
+                    "isWatch": true
                 }
             ]
         }
