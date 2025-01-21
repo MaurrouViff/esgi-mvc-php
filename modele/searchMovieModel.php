@@ -31,3 +31,4 @@ class SearchMovieModel
         return $response->getBody();
     }
 }
+

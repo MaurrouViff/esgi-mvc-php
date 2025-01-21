@@ -31,3 +31,4 @@ class MovieInfosModel
         return $response->getBody();
     }
 }
+

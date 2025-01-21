@@ -20,3 +20,4 @@ try {
 }
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueMovieInfos.php";
+

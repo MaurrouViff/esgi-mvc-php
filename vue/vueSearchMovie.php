@@ -86,3 +86,4 @@ $movies = json_decode($results, true);
     <?php endif; ?>
 </body>
 </html>
+
