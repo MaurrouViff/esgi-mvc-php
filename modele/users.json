@@ -13,6 +13,13 @@
             "mot_de_passe": "test",
             "friend_id": [],
             "films": []
+        },
+        {
+            "id": 3,
+            "nom": "a",
+            "mot_de_passe": "a",
+            "friend_id": [],
+            "films": []
         }
     ]
 }
