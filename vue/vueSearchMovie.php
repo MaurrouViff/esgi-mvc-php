@@ -60,6 +60,14 @@ $movies = json_decode($results, true);
 
 <body>
     <h1>Movie Search Results</h1>
+
+    <form action="./?action=accueil" method="get">
+        <label for="content">Recherche</label>
+        <input type="hidden" name="action" value="search">
+        <input type="text" name="content" id="content">
+        <button type="submit">Rechercher</button>
+    </form>
+
     <?php if (!empty($movies['results'])): ?>
         <div class="movies-grid">
             <?php foreach ($movies['results'] as $movie): ?>
