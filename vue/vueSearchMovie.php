@@ -5,7 +5,6 @@ $movies = json_decode($results, true);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +40,8 @@ $movies = json_decode($results, true);
             flex-direction: column;
             justify-content: space-between;
             max-height: 400px;
+            text-decoration: none;
+            color: inherit;
         }
 
         .movie-card img {
@@ -57,7 +58,6 @@ $movies = json_decode($results, true);
         }
     </style>
 </head>
-
 <body>
     <h1>Movie Search Results</h1>
 
@@ -71,19 +71,18 @@ $movies = json_decode($results, true);
     <?php if (!empty($movies['results'])): ?>
         <div class="movies-grid">
             <?php foreach ($movies['results'] as $movie): ?>
-                <div class="movie-card">
+                <a href="?action=movieDetails&id=<?php echo htmlspecialchars($movie['id']); ?>" class="movie-card">
                     <?php if (!empty($movie['poster_path'])): ?>
                         <img src="https://image.tmdb.org/t/p/w200<?php echo htmlspecialchars($movie['poster_path']); ?>" alt="<?php echo htmlspecialchars($movie['title']); ?>">
                     <?php else: ?>
                         <p>No poster available</p>
                     <?php endif; ?>
                     <h2><?php echo htmlspecialchars($movie['title']); ?></h2>
-                </div>
+                </a>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
         <p>No movies found.</p>
     <?php endif; ?>
 </body>
-
 </html>
