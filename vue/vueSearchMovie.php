@@ -1,8 +1,3 @@
-<?php
-// Decode the JSON response
-$movies = json_decode($results, true);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +11,9 @@ $movies = json_decode($results, true);
             margin: 0;
             padding: 20px;
         }
-
         h1 {
             text-align: center;
         }
-
         .movies-grid {
             display: flex;
             flex-wrap: wrap;
@@ -28,7 +21,6 @@ $movies = json_decode($results, true);
             justify-content: center;
             padding: 0;
         }
-
         .movie-card {
             background-color: #fff;
             border-radius: 8px;
@@ -40,17 +32,13 @@ $movies = json_decode($results, true);
             flex-direction: column;
             justify-content: space-between;
             max-height: 400px;
-            text-decoration: none;
-            color: inherit;
         }
-
         .movie-card img {
             width: 100%;
             height: auto;
             max-height: 300px;
             object-fit: cover;
         }
-
         .movie-card h2 {
             margin: 10px 0;
             font-size: 16px;
@@ -60,15 +48,9 @@ $movies = json_decode($results, true);
 </head>
 <body>
     <h1>Movie Search Results</h1>
-
-    <form action="./?action=accueil" method="get">
-        <label for="content">Recherche</label>
-        <input type="hidden" name="action" value="search">
-        <input type="text" name="content" id="content">
-        <button type="submit">Rechercher</button>
-    </form>
-
-    <?php if (!empty($movies['results'])): ?>
+    <?php if (isset($error['error'])): ?>
+        <p>An error occurred: <?php echo htmlspecialchars($error['error']); ?></p>
+    <?php elseif (!empty($movies['results'])): ?>
         <div class="movies-grid">
             <?php foreach ($movies['results'] as $movie): ?>
                 <a href="?action=movieDetails&id=<?php echo htmlspecialchars($movie['id']); ?>" class="movie-card">

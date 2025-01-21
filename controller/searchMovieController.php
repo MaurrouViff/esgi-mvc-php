@@ -9,14 +9,15 @@ $racine = dirname(__FILE__, 2);
 include "$racine/modele/searchMovieModel.php";
 
 $model = new SearchMovieModel();
-$query = $_GET['content'] ?? 'cars';
+$query = $_GET['content'] ?? '';
+
+$results = null; // Initialize the $results variable
 
 try {
     $results = $model->searchMovie($query);
-    // Read the response body
-    $results = $results->getContents();
+    $movies = json_decode($results, true); // Decode the JSON string to an array
 } catch (Exception $e) {
-    $results = json_encode(['error' => 'An error occurred while fetching the movie data. Please try again later.']);
+    $error = ['error' => $e->getMessage()];
 }
-include "$racine/vue/vueHeader.php";
+
 include "$racine/vue/vueSearchMovie.php";

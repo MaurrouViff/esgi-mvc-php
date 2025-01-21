@@ -9,14 +9,16 @@ $racine = dirname(__FILE__, 2);
 include "$racine/modele/MovieInfosModel.php";
 
 $model = new MovieInfosModel();
-$query = $_GET['id'] ?? 'cars';
+$query = $_GET['id'] ?? '';
 
 try {
+    if (empty($query)) {
+        throw new Exception('Missing required movie ID');
+    }
     $response = $model->MovieInfos($query);
-
-    $movie = json_decode($response->getContents(), true);
+    $movie = json_decode($response, true);
 } catch (Exception $e) {
-    $results = json_encode(['error' => 'An error occurred while fetching the movie data. Please try again later.']);
+    $movie = ['error' => $e->getMessage()];
 }
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueMovieInfos.php";
