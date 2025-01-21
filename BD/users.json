@@ -1,0 +1,8 @@
+{
+    "exemples_de_données": {
+        "id": "Identifiant unique de l'utilisateur (ex. 1)",
+        "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
+        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')"
+    },
+    "users": []
+}
