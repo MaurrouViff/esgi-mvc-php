@@ -9,4 +9,4 @@
     <title><?= $titre ?></title>
 </head>
 <body>
-
+<a href="./?action=accueil">Accueil</a>
