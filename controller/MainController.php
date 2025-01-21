@@ -6,6 +6,7 @@ class MainController {
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
         'search' => "searchMovieController.php",
+        "connexion" => "connexion.php",
     );
 
 
@@ -17,7 +18,6 @@ class MainController {
         }
     }
 }
-
 
 $action = "detail";
 $page = MainController::execute($action);
