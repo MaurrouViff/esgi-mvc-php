@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "nom": "AUBRIET",
+            "mot_de_passe": "oui",
+            "friend_id": [],
+            "films": []
+        },
+        {
+            "id": 2,
+            "nom": "test",
+            "mot_de_passe": "test",
+            "friend_id": [],
+            "films": []
+        },
+        {
+            "id": 3,
+            "nom": "a",
+            "mot_de_passe": "a",
+            "friend_id": [],
+            "films": []
+        }
+    ]
+}

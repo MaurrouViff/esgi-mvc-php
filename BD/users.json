@@ -1,32 +1,39 @@
 {
-    "exemples_de_données": {
-        "id": "Identifiant unique de l'utilisateur (ex. 1)",
-        "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
-        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')",
-        "friend_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8)",
-        "films": [
-            {
-                "id": "Identifiant unique du film (ex. 1)",
-                "note": "Note attribuée par l'utilisateur au film (ex. 5)"
-            }
-        ]
-    },
-    "users": [
-        {
-            "id": 1,
-            "nom": "a",
-            "mot_de_passe": "",
-            "friend_id": [],
-            "films": [
-                {
-                    "id": 1,
-                    "note": 5
-                },
-                {
-                    "id": 2,
-                    "note": 4
-                }
-            ]
-        }
+  "exemples_de_données": {
+    "id": "Identifiant unique de l'utilisateur (ex. 1)",
+    "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
+    "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')",
+    "friend_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8)",
+    "films": [
+      {
+        "id": "Identifiant unique du film (ex. 1)",
+        "note": "Note attribuée par l'utilisateur au film (ex. 5)"
+      }
     ]
+  },
+  "users": [
+    {
+      "id": 1,
+      "nom": "a",
+      "mot_de_passe": "",
+      "friend_id": [],
+      "films": [
+        {
+          "id": 1,
+          "note": 5
+        },
+        {
+          "id": 2,
+          "note": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nom": "aurelien",
+      "mot_de_passe": "aurelien",
+      "friend_list": [],
+      "films": []
+    }
+  ]
 }

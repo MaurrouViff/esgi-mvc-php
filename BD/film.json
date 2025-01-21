@@ -1,10 +1,10 @@
 {
     "exemples_de_données": {
-        "id": "int",
-        "titre": "",
-        "description": "",
-        "image": "",
-        "durée": ""
+        "id": "Identifiant unique du film (ex. 1) [Type: Integer]",
+        "titre": "Titre du film (ex. 'Inception') [Type: String]",
+        "description": "Description du film (ex. 'Un voleur qui dérobe des secrets à travers l'utilisation de la technologie de partage de rêves...') [Type: String]",
+        "image": "URL de l'image du film (ex. 'http://example.com/image.jpg') [Type: String]",
+        "durée": "Durée du film (ex. '2h28m') [Type: String]"
     },
     "film": [
         {
