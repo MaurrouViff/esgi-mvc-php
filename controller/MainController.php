@@ -13,6 +13,7 @@ class MainController {
     );
 
 
+
     public static function execute(string $action): string {
         if (array_key_exists($action, self::$actions)) {
             return self::$actions[$action];

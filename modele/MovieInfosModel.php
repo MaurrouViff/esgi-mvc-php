@@ -8,6 +8,7 @@ class MovieInfosModel
     private $client;
     private $apiKey;
 
+
     public function __construct()
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
