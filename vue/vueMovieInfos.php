@@ -39,6 +39,34 @@
         .movie-details h1 {
             margin-top: 0;
         }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .favorite-button {
+            background-color: #ffcc00;
+            color: #fff;
+        }
+
+        .watch-later-button {
+            background-color: #00ccff;
+            color: #fff;
+        }
+
+        .watched-button {
+            background-color: #66cc66;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -58,9 +86,41 @@
                         <?php echo htmlspecialchars($genre['name']); ?> 
                     <?php endforeach; ?>
                 </p>
+                <div class="buttons">
+                    <button class="favorite-button" onclick="handleAction('favorite', <?php echo htmlspecialchars($movie['id']); ?>)">Add to Favorites</button>
+                    <button class="watch-later-button" onclick="handleAction('watch_later', <?php echo htmlspecialchars($movie['id']); ?>)">Watch Later</button>
+                    <button class="watched-button" onclick="handleAction('watched', <?php echo htmlspecialchars($movie['id']); ?>)">Mark as Watched</button>
+                </div>
             </div>
         <?php endif; ?>
     </div>
+
+    <script>
+        function handleAction(action, movieId) {
+            fetch('../controller/movieActionsController.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: action,
+                    movie_id: movieId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Action completed successfully : ' + data.message);
+                } else {
+                    alert('Action failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+    </script>
 </body>
 
 </html>
