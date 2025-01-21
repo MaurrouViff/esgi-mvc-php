@@ -9,4 +9,16 @@
     <title><?= $titre ?></title>
 </head>
 <body>
+<<<<<<<<< Temporary merge branch 1
+<header>
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="./?action=accueil">Accueil</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+=========
+
 <a href="./?action=accueil">Accueil</a>

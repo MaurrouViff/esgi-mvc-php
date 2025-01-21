@@ -5,8 +5,8 @@ class MainController {
     private static array $actions = array(
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
-        "authentification" => "authentification.php",
-        "logout" => "logout.php",
+        'search' => "searchMovieController.php",
+        "connexion" => "connexion.php",
     );
 
 
