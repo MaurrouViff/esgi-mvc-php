@@ -1,4 +1,6 @@
-<form action="./?action=search" method="get">
-    <label for="">Recherche</label>
-    <input type="text" name="search" id="search">
+<form action="./index.php" method="get">
+    <label for="content">Recherche</label>
+    <input type="hidden" name="action" value="search">
+    <input type="text" name="content" id="content">
+    <button type="submit">Rechercher</button>
 </form>
