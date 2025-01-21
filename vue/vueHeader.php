@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a href="./?action=accueil">Accueil</a>
             </li>
+            <li class="nav-item">
+                <a href="./?action=authentification">Connexion</a>
+            </li>
         </ul>
     </nav>
 </header>

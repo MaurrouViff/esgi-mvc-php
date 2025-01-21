@@ -27,6 +27,13 @@
           "note": 4
         }
       ]
+    },
+    {
+      "id": 2,
+      "nom": "aurelien",
+      "mot_de_passe": "aurelien",
+      "friend_list": [],
+      "films": []
     }
   ]
 }

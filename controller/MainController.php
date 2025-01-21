@@ -5,7 +5,7 @@ class MainController {
     private static array $actions = array(
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
-        "connexion" => "connexion.php",
+        "authentification" => "authentification.php",
     );
 
 
