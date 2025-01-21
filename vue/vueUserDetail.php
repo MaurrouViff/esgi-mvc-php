@@ -1,3 +1,5 @@
+<section>
+
 <h1>Bienvenue, <?= htmlspecialchars($user['nom']); ?> !</h1>
 
 <p>Voici vos informations :</p>
@@ -9,3 +11,4 @@
 </ul>
 
 <a href="./?action=logout">Se déconnecter</a>
+</section>

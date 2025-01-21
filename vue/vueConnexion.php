@@ -1,6 +1,6 @@
 <h1>Connexion / Inscription</h1>
 <form method="POST">
-    <label for="nom">Nom d'utilisateur:</label>
+    <label for="nom">Nom d'utilisateur :</label>
     <input type="text" id="nom" name="nom" required>
 
     <label for="mot_de_passe">Mot de passe:</label>
