@@ -9,5 +9,15 @@
     <title><?= $titre ?></title>
 </head>
 <body>
-
-<a href="./?action=accueil">Accueil</a>
+<header>
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="./?action=accueil">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a href="./?action=authentification">Connexion</a>
+            </li>
+        </ul>
+    </nav>
+</header>
