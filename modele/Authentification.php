@@ -37,7 +37,8 @@ class Authentification {
             "id" => count($data['users']) + 1,
             "nom" => $nom,
             "mot_de_passe" => $motDePasse,
-            "friend_id" => [],
+            "friends_id" => [],
+            "friends_request_id" => [],
             "films" => []
         ];
         $data['users'][] = $newUser;

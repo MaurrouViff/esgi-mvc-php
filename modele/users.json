@@ -5,6 +5,7 @@
             "nom": "AUBRIET",
             "mot_de_passe": "oui",
             "friend_id": [],
+            "friends_request_id": [],
             "films": []
         },
         {
@@ -12,6 +13,7 @@
             "nom": "test",
             "mot_de_passe": "test",
             "friend_id": [],
+            "friends_request_id": [],
             "films": []
         },
         {
@@ -19,6 +21,17 @@
             "nom": "a",
             "mot_de_passe": "a",
             "friend_id": [],
+            "friends_request_id": [],
+            "films": []
+        },
+        {
+            "id": 4,
+            "nom": "z",
+            "mot_de_passe": "z",
+            "friends_id": [],
+            "friends_request_id": [
+                3
+            ],
             "films": []
         }
     ]
