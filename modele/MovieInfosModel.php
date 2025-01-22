@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
 
 class MovieInfosModel
 {
-    private $client;
-    private $apiKey;
+    private \GuzzleHttp\Client $client;
+    private mixed $apiKey;
 
 
     public function __construct()
@@ -18,7 +19,7 @@ class MovieInfosModel
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
-    public function MovieInfos($query)
+    public function MovieInfos($query): \Psr\Http\Message\StreamInterface
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/' . $query, [
             'headers' => [

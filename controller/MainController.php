@@ -6,7 +6,7 @@ class MainController {
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
         'search' => "searchMovieController.php",
-        'movieDetails' => "MovieInfosController.php",
+        'movieDetails' => "movieInfosController.php",
         "connexion" => "connexion.php",
         "authentification" => "authentification.php",
         "logout" => "logout.php",

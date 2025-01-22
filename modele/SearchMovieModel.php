@@ -5,8 +5,8 @@ use Dotenv\Dotenv;
 
 class SearchMovieModel
 {
-    private $client;
-    private $apiKey;
+    private \GuzzleHttp\Client $client;
+    private mixed $apiKey;
 
 
     public function __construct()
