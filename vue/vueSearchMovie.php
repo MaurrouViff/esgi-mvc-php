@@ -1,5 +1,15 @@
+<?php
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+$csrf_token = $_SESSION['csrf_token'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +21,11 @@
             margin: 0;
             padding: 20px;
         }
+
         h1 {
             text-align: center;
         }
+
         .movies-grid {
             display: flex;
             flex-wrap: wrap;
@@ -21,6 +33,7 @@
             justify-content: center;
             padding: 0;
         }
+
         .movie-card {
             background-color: #fff;
             border-radius: 8px;
@@ -33,12 +46,14 @@
             justify-content: space-between;
             max-height: 400px;
         }
+
         .movie-card img {
             width: 100%;
             height: auto;
             max-height: 300px;
             object-fit: cover;
         }
+
         .movie-card h2 {
             margin: 10px 0;
             font-size: 16px;
@@ -46,7 +61,17 @@
         }
     </style>
 </head>
+
 <body>
+    <form action="" method="get">
+        <label for="content">Recherche</label>
+        <input type="hidden" name="action" id="action" value="search">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
+        <input type="text" name="content" id="content">
+        <button type="submit">Rechercher</button>
+    </form>
+
+
     <h1>Movie Search Results</h1>
     <?php if (isset($error['error'])): ?>
         <p>An error occurred: <?php echo htmlspecialchars($error['error']); ?></p>
@@ -67,4 +92,5 @@
         <p>No movies found.</p>
     <?php endif; ?>
 </body>
+
 </html>

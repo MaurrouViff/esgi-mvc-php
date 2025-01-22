@@ -1,10 +1,16 @@
 <?php
+
+// Générer un nouveau jeton CSRF si non existant
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+$csrf_token = $_SESSION['csrf_token'];
 $movies = [];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,11 +50,11 @@ $movies = [];
         }
     </style>
 </head>
-
 <body>
     <form action="" method="get">
         <label for="content">Recherche</label>
         <input type="hidden" name="action" id="action" value="search">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
         <input type="text" name="content" id="content">
         <button type="submit">Rechercher</button>
     </form>
@@ -69,10 +75,10 @@ $movies = [];
                             const movieItem = document.createElement('div');
                             movieItem.className = 'movie-item';
                             movieItem.innerHTML = `
-                                <a href="?action=movieDetails&id=${movie.id}">
-                                    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
-                                    <h3>${movie.title}</h3>
-                                    <p>${movie.release_date}</p>
+                                <a href="?action=movieDetails&id=${encodeURIComponent(movie.id)}">
+                                    <img src="https://image.tmdb.org/t/p/w200${encodeURIComponent(movie.poster_path)}" alt="${encodeURIComponent(movie.title)}">
+                                    <h3>${encodeURIComponent(movie.title)}</h3>
+                                    <p>${encodeURIComponent(movie.release_date)}</p>
                                 </a>
                             `;
                             movieList.appendChild(movieItem);
@@ -88,5 +94,4 @@ $movies = [];
         });
     </script>
 </body>
-
 </html>
