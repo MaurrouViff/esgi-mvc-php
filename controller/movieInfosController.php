@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 $racine = dirname(__FILE__, 2);
 
-include "$racine/modele/MovieInfosModel.php";
+include_once "$racine/modele/MovieInfosModel.php";
 
 $model = new MovieInfosModel();
 $query = $_GET['id'] ?? 'cars';

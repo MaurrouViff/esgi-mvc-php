@@ -22,6 +22,7 @@ class MovieInfosModel
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
+
     /**
      * @throws GuzzleException
      */
