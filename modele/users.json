@@ -55,14 +55,23 @@
                 {
                     "id": 920,
                     "isFavorite": false,
-                    "isWatchLater": false,
+                    "isWatchLater": true,
                     "isWatched": false,
                     "rating": 4
                 },
                 {
                     "id": 939243,
-                    "rating": 4,
-                    "isWatchLater": true
+                    "rating": 2,
+                    "isWatchLater": false,
+                    "isFavorite": true,
+                    "isWatched": true
+                },
+                {
+                    "id": 1241982,
+                    "rating": 5,
+                    "isWatchLater": false,
+                    "isFavorite": true,
+                    "isWatched": true
                 }
             ]
         },
@@ -74,6 +83,14 @@
             "friends_request_id": [
                 3
             ],
+            "films": []
+        },
+        {
+            "id": 5,
+            "nom": "azz",
+            "mot_de_passe": "azz",
+            "friends_id": [],
+            "friends_request_id": [],
             "films": []
         }
     ]

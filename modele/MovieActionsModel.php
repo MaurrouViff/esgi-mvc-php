@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
+
 session_start();
 
 class MovieActionsModel
 {
-    private $movies;
+    private array $movies;
 
     public function __construct()
     {
@@ -32,7 +34,7 @@ class MovieActionsModel
         $this->movies = $data['film'] ?? [];
     }
 
-    private function movieExists(int $movieId)
+    private function movieExists(int $movieId): bool
     {
         foreach ($this->movies as $movie) {
             if ($movie['id'] == $movieId) {
@@ -42,7 +44,7 @@ class MovieActionsModel
         return false;
     }
 
-    private function addFilmIfNotExists(int $movieId, array $movieDetails)
+    private function addFilmIfNotExists(int $movieId, array $movieDetails): void
     {
         if (!$this->movieExists($movieId)) {
             // Add the movie to films.json
@@ -67,7 +69,7 @@ class MovieActionsModel
         }
     }
 
-    public function addToFavorites(int $movieId, array $movieDetails)
+    public function addToFavorites(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -110,7 +112,7 @@ class MovieActionsModel
         }
     }
 
-    public function addToWatchLater(int $movieId, array $movieDetails)
+    public function addToWatchLater(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -132,7 +134,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatchLater'] = true; // Update isWatchLater if the movie already exists
+                        $film['isWatchLater'] = !$film['isWatchLater'];
                         break;
                     }
                 }
@@ -153,7 +155,7 @@ class MovieActionsModel
         }
     }
 
-    public function markAsWatched(int $movieId, array $movieDetails)
+    public function markAsWatched(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -175,7 +177,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatched'] = true; // Update isWatched if the movie already exists
+                        $film['isWatched'] = !$film['isWatched'];
                         break;
                     }
                 }
@@ -196,7 +198,7 @@ class MovieActionsModel
         }
     }
 
-    public function rateMovie(int $movieId, int $rating)
+    public function rateMovie(int $movieId, int $rating): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
 
@@ -215,7 +217,7 @@ class MovieActionsModel
             if ($user['id'] == $userId) {
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
-                        $film['rating'] = $rating; // Update rating if the movie already exists
+                        $film['rating'] = $rating;
                         break 2;
                     }
                 }

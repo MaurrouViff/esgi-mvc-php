@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 class Authentification {
     private static function getFilePath(): string {
 
