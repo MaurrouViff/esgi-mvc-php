@@ -26,6 +26,7 @@ switch ($_POST['action'] ?? '') {
         break;
     case 'rejectFriend':
         $classUsers->rejectFriendRequest($_POST['userId'], $_POST['requestId']);
+        header('Location: ./?action=profil');
         break;
 
     default:
