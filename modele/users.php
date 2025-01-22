@@ -83,15 +83,17 @@ class Users {
 
     public function getAllUsersNotFriend(int $userId): array {
         $filePath = self::getFilePath();
-        $data = json_decode(file_get_contents($filePath), true);
+        $alldata = json_decode(file_get_contents($filePath), true);
         $notFriends = [];
-
-        foreach ($data['users'] as $user) {
+        if(is_null($alldata)){
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
+        foreach ($alldata['users'] as $user) {
             // ajoute tout les id utilisateur
             $notFriends[] = $user;
         }
         // retire l'utilisateur connecté et ses amies de la liste
-        foreach ($data['users'] as $key => $user) {
+        foreach ($alldata['users'] as $key => $user) {
             if ($user['id'] == $userId) {
                 unset($notFriends[$key]);
             }
@@ -106,7 +108,9 @@ class Users {
     public function addFriend(int $userId, int $friendId): array {
         // Load all user data from the JSON file
         $alldata = json_decode(file_get_contents(self::getFilePath()), true);
-
+        if(is_null($alldata)){
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
         // Iterate through all users to find the user with the given friendId
         foreach ($alldata["users"] as &$user) {
             if ($user['id'] == $friendId) {
@@ -145,7 +149,9 @@ class Users {
     public function rejectFriendRequest(int $userId, int $friendId): array {
         // Load all user data from the JSON file
         $alldata = json_decode(file_get_contents(self::getFilePath()), true);
-
+        if(is_null($alldata)){
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
         // Iterate through all users to find the user with the given userId
         foreach ($alldata["users"] as &$user) {
             if ($user['id'] == $userId) {
