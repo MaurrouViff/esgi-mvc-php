@@ -10,6 +10,7 @@ class MainController {
         "connexion" => "connexion.php",
         "authentification" => "authentification.php",
         "logout" => "logout.php",
+        "profil" => "profil.php",
     );
 
 

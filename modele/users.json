@@ -18,9 +18,9 @@
     "users": [
         {
             "id": 1,
-            "nom": "AUBRIET",
-            "mot_de_passe": "oui",
-            "friend_id": [],
+            "nom": "a",
+            "mot_de_passe": "a",
+            "friends_id": [],
             "friends_request_id": [],
             "films": [
                 {
@@ -35,17 +35,19 @@
         },
         {
             "id": 2,
-            "nom": "test",
-            "mot_de_passe": "test",
-            "friend_id": [],
+            "nom": "aurelien",
+            "mot_de_passe": "aurelien",
+            "friends_list": [],
             "friends_request_id": [],
             "films": []
         },
         {
             "id": 3,
-            "nom": "a",
-            "mot_de_passe": "a",
-            "friend_id": [],
+            "nom": "e",
+            "mot_de_passe": "e",
+            "friends_id": [
+                4
+            ],
             "friends_request_id": [],
             "films": [
                 {
@@ -79,10 +81,10 @@
             "id": 4,
             "nom": "z",
             "mot_de_passe": "z",
-            "friends_id": [],
-            "friends_request_id": [
+            "friends_id": [
                 3
             ],
+            "friends_request_id": [],
             "films": []
         },
         {
