@@ -3,6 +3,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class MovieInfosModel
 {
@@ -19,7 +20,8 @@ class MovieInfosModel
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
+     * @throws Exception
      */
     public function MovieInfos(int $query = 0): false|string
     {
