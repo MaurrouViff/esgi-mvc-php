@@ -7,9 +7,9 @@ class MainController {
         'accueil' => "accueil.php",
         'search' => "searchMovieController.php",
         'movieDetails' => "movieInfosController.php",
-        "connexion" => "connexion.php",
         "authentification" => "authentification.php",
         "logout" => "logout.php",
+        "updatePassword" => "updatePassword.php",
     );
 
 

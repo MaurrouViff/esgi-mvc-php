@@ -10,7 +10,7 @@
         {
             "id": 2,
             "nom": "test",
-            "mot_de_passe": "test",
+            "mot_de_passe": "test1",
             "friend_id": [],
             "films": []
         },
