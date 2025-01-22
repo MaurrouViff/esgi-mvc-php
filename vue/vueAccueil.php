@@ -46,8 +46,9 @@ $movies = [];
 </head>
 
 <body>
-    <form action="./vueAccueil.php" method="get">
+    <form action="" method="get">
         <label for="content">Recherche</label>
+        <input type="hidden" name="action" id="action" value="search">
         <input type="text" name="content" id="content">
         <button type="submit">Rechercher</button>
     </form>

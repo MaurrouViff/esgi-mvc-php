@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once('../modele/MovieActionsModel.php');
 
 header('Content-Type: application/json');
@@ -17,20 +19,20 @@ if (!empty($movieId) && !empty($action) && !empty($movieDetails)) {
     try {
         switch ($action) {
             case 'favorite':
-                $model->addToFavorites($movieId, $movieDetails);
+                $model->addToFavorites((int)$movieId, (array)$movieDetails);
                 $response = ['success' => true, 'message' => 'Update favorite'];
                 break;
             case 'watch_later':
-                $model->addToWatchLater($movieId, $movieDetails);
+                $model->addToWatchLater((int)$movieId, (array)$movieDetails);
                 $response = ['success' => true, 'message' => 'Update watch later'];
                 break;
             case 'watched':
-                $model->markAsWatched($movieId, $movieDetails);
+                $model->markAsWatched((int)$movieId, (array)$movieDetails);
                 $response = ['success' => true, 'message' => 'Update watched'];
                 break;
             case 'rate':
                 if ($rating !== null) {
-                    $model->rateMovie($movieId, $rating);
+                    $model->rateMovie((int)$movieId, (int)$rating);
                     $response = ['success' => true, 'message' => 'Movie rated'];
                 } else {
                     $response = ['success' => false, 'message' => 'Missing rating'];

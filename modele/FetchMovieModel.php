@@ -2,27 +2,22 @@
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 
 class FetchMovieModel
 {
-    private Client $client;
-    private mixed $apiKey;
+    private $client;
+    private $apiKey;
 
     public function __construct()
     {
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
 
-        $this->client = new Client();
+        $this->client = new \GuzzleHttp\Client();
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
-    /**
-     * @throws GuzzleException
-     */
-    public function FetchMovie(): mixed
+    public function FetchMovie()
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/popular', [
             'query' => [

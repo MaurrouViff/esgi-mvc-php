@@ -3,7 +3,7 @@ session_start();
 
 class MovieActionsModel
 {
-    private mixed $movies;
+    private $movies;
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class MovieActionsModel
         $this->movies = $data['film'] ?? [];
     }
 
-    private function movieExists(int $movieId): bool
+    private function movieExists(int $movieId)
     {
         foreach ($this->movies as $movie) {
             if ($movie['id'] == $movieId) {
@@ -42,10 +42,7 @@ class MovieActionsModel
         return false;
     }
 
-    /**
-     * @throws Exception
-     */
-    private function addFilmIfNotExists(int $movieId, array $movieDetails): void
+    private function addFilmIfNotExists(int $movieId, array $movieDetails)
     {
         if (!$this->movieExists($movieId)) {
             // Add the movie to films.json
@@ -70,10 +67,7 @@ class MovieActionsModel
         }
     }
 
-    /**
-     * @throws Exception
-     */
-    public function addToFavorites(int $movieId, array $movieDetails): void
+    public function addToFavorites(int $movieId, array $movieDetails)
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -116,10 +110,7 @@ class MovieActionsModel
         }
     }
 
-    /**
-     * @throws Exception
-     */
-    public function addToWatchLater(int $movieId, array $movieDetails): void
+    public function addToWatchLater(int $movieId, array $movieDetails)
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -162,10 +153,7 @@ class MovieActionsModel
         }
     }
 
-    /**
-     * @throws Exception
-     */
-    public function markAsWatched(int $movieId, array $movieDetails): void
+    public function markAsWatched(int $movieId, array $movieDetails)
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -208,10 +196,7 @@ class MovieActionsModel
         }
     }
 
-    /**
-     * @throws Exception
-     */
-    public function rateMovie(int $movieId, int $rating): void
+    public function rateMovie(int $movieId, int $rating)
     {
         $userId = $_SESSION['user']['id'] ?? null;
 
