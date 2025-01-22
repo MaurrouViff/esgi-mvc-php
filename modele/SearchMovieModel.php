@@ -3,11 +3,13 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\StreamInterface;
 
 class SearchMovieModel
 {
-    private \GuzzleHttp\Client $client;
+    private Client $client;
     private mixed $apiKey;
 
 
@@ -16,14 +18,14 @@ class SearchMovieModel
         $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
 
-        $this->client = new \GuzzleHttp\Client();
+        $this->client = new Client();
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
     /**
      * @throws GuzzleException
      */
-    public function searchMovie($query): \Psr\Http\Message\StreamInterface
+    public function searchMovie($query): StreamInterface
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/search/movie?query=' . $query, [
             'headers' => [
