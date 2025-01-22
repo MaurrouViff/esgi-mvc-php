@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+
+use GuzzleHttp\Exception\GuzzleException;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -15,7 +18,7 @@ try {
     $response = $model->MovieInfos($query);
 
     $movie = json_decode($response->getContents(), true);
-} catch (Exception $e) {
+} catch (GuzzleException $e) {
     $results = json_encode(['error' => 'An error occurred while fetching the movie data. Please try again later.']);
 }
 include "$racine/vue/vueHeader.php";

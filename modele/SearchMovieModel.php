@@ -3,6 +3,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
+use GuzzleHttp\Exception\GuzzleException;
 
 class SearchMovieModel
 {
@@ -19,7 +20,10 @@ class SearchMovieModel
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
-    public function searchMovie($query)
+    /**
+     * @throws GuzzleException
+     */
+    public function searchMovie($query): \Psr\Http\Message\StreamInterface
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/search/movie?query=' . $query, [
             'headers' => [
