@@ -89,7 +89,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isFavorite'] = !$film['isFavorite']; // Update isFavorite if the movie already exists
+                        $film['isFavorite'] = true; // Update isFavorite if the movie already exists
                         break;
                     }
                 }
@@ -132,7 +132,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatchLater'] = !$film['isWatchLater']; // Update isWatchLater if the movie already exists
+                        $film['isWatchLater'] = true; // Update isWatchLater if the movie already exists
                         break;
                     }
                 }
@@ -175,7 +175,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatched'] = !$film['isWatched']; // Update isWatched if the movie already exists
+                        $film['isWatched'] = true; // Update isWatched if the movie already exists
                         break;
                     }
                 }
@@ -185,6 +185,45 @@ class MovieActionsModel
                         'isWatched' => true
                     ];
                 }
+                break;
+            }
+        }
+
+        // Save the updated users JSON data
+        if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
+            error_log("Failed to write to file: " . $filePath);
+            throw new Exception('Failed to write to users.json');
+        }
+    }
+
+    public function rateMovie(int $movieId, int $rating)
+    {
+        $userId = $_SESSION['user']['id'] ?? null;
+
+        // Assuming the user is logged in and their ID is stored in the session
+        if ($userId === null) {
+            throw new Exception('User not logged in');
+        }
+
+        // Load the users JSON data
+        $filePath = '../modele/users.json';
+        $jsonContent = file_get_contents($filePath);
+        $data = json_decode($jsonContent, true);
+
+        // Find the user and add the rating to the movie in their films list
+        foreach ($data['users'] as &$user) {
+            if ($user['id'] == $userId) {
+                foreach ($user['films'] as &$film) {
+                    if ($film['id'] == $movieId) {
+                        $film['rating'] = $rating; // Update rating if the movie already exists
+                        break 2;
+                    }
+                }
+                // If the movie does not exist in the user's list, add it with the rating
+                $user['films'][] = [
+                    'id' => $movieId,
+                    'rating' => $rating
+                ];
                 break;
             }
         }

@@ -56,7 +56,8 @@
                     "id": 920,
                     "isFavorite": false,
                     "isWatchLater": false,
-                    "isWatched": false
+                    "isWatched": false,
+                    "rating": 4
                 }
             ]
         },

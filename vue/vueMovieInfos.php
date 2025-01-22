@@ -67,6 +67,27 @@
             background-color: #66cc66;
             color: #fff;
         }
+
+        .rating {
+            margin-top: 20px;
+            direction: rtl; /* Add this line */
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 30px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffcc00;
+        }
     </style>
 </head>
 
@@ -93,6 +114,7 @@
                     $isFavorite = false;
                     $isWatchLater = false;
                     $isWatched = false;
+                    $userRating = null;
 
                     if ($userId !== null) {
                         $filePath = './modele/users.json';
@@ -111,6 +133,9 @@
                                         }
                                         if (isset($film['isWatched']) && $film['isWatched']) {
                                             $isWatched = true;
+                                        }
+                                        if (isset($film['rating'])) {
+                                            $userRating = $film['rating'];
                                         }
                                         break 2;
                                     }
@@ -145,18 +170,29 @@
                 </button>
 
                 </div>
+
+                <div class="rating">
+                    <form id="ratingForm">
+                        <input type="radio" id="star1" name="rating" value="1" <?php echo ($userRating == 1) ? 'checked' : ''; ?>><label for="star1" title="1 star">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" <?php echo ($userRating == 2) ? 'checked' : ''; ?>><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" <?php echo ($userRating == 3) ? 'checked' : ''; ?>><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" <?php echo ($userRating == 4) ? 'checked' : ''; ?>><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star5" name="rating" value="5" <?php echo ($userRating == 5) ? 'checked' : ''; ?>><label for="star5" title="5 stars">★</label>
+                    </form>
+                </div>
             </div>
         <?php endif; ?>
     </div>
 
     <script>
-        function handleAction(action, movieId) {
+        function handleAction(action, movieId, rating = null) {
             const movieDetails = {
                 id: movieId,
                 title: "<?php echo htmlspecialchars($movie['title']); ?>",
                 description: "<?php echo htmlspecialchars($movie['overview']); ?>",
                 image: "https://image.tmdb.org/t/p/w500<?php echo htmlspecialchars($movie['poster_path']); ?>",
-                duration: "<?php echo htmlspecialchars($movie['runtime']); ?> minutes"
+                duration: "<?php echo htmlspecialchars($movie['runtime']); ?> minutes",
+                rating: rating
             };
 
             fetch('../controller/MovieActionsController.php', {
@@ -183,6 +219,12 @@
                     alert('An error occurred');
                 });
         }
+
+        document.getElementById('ratingForm').addEventListener('change', function() {
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const movieId = <?php echo htmlspecialchars($movie['id']); ?>;
+            handleAction('rate', movieId, rating);
+        });
     </script>
 </body>
 
