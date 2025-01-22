@@ -1,26 +1,32 @@
 <?php
+
+declare(strict_types=1);
+
 session_start();
 
 class MovieActionsModel
 {
-    private mixed $movies;
+    private array $movies;
 
     public function __construct()
     {
         // Load the movies JSON data
         $filePath = '../modele/film.json';
         if (!file_exists($filePath)) {
-            return 'File not found';
+            echo 'File not found';
+            return;
         }
 
         $jsonContent = file_get_contents($filePath);
         if ($jsonContent === false) {
-            return 'Failed to read file';
+            echo 'Failed to read file';
+            return;
         }
 
         $data = json_decode($jsonContent, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return 'JSON decode error: ' . json_last_error_msg();
+            echo 'JSON decode error: ' . json_last_error_msg();
+            return;
         }
 
         $this->movies = $data['film'] ?? [];
@@ -28,12 +34,7 @@ class MovieActionsModel
 
     private function movieExists(int $movieId): bool
     {
-        foreach ($this->movies as $movie) {
-            if ($movie['id'] == $movieId) {
-                return true;
-            }
-        }
-        return false;
+        return !empty(array_filter($this->movies, fn($movie) => $movie['id'] == $movieId));
     }
 
     private function addFilmIfNotExists(int $movieId, array $movieDetails): array
@@ -80,29 +81,28 @@ class MovieActionsModel
         $data = json_decode($jsonContent, true);
 
         // Find the user and add the movie to their films list
-        foreach ($data['users'] as &$user) {
+        $data['users'] = array_map(function ($user) use ($userId, $movieId) {
             if ($user['id'] == $userId) {
-                $movieExists = false;
-                foreach ($user['films'] as &$film) {
-                    if ($film['id'] == $movieId) {
-                        $movieExists = true;
-                        $film['isFavorite'] = true; // Update isFavorite if the movie already exists
-                        break;
-                    }
-                }
-                if (!$movieExists) {
+                $movieExists = array_filter($user['films'], fn($film) => $film['id'] == $movieId);
+                if ($movieExists) {
+                    $user['films'] = array_map(function ($film) use ($movieId) {
+                        if ($film['id'] == $movieId) {
+                            $film['isFavorite'] = $film['isFavorite'] == true ? false : true;
+                        }
+                        return $film;
+                    }, $user['films']);
+                } else {
                     $user['films'][] = [
                         'id' => $movieId,
                         'isFavorite' => true
                     ];
                 }
-                break;
             }
-        }
+            return $user;
+        }, $data['users']);
 
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
-            error_log("Failed to write to file: " . $filePath);
             return ['error' => 'Failed to write to users.json'];
         }
 
@@ -128,29 +128,28 @@ class MovieActionsModel
         $data = json_decode($jsonContent, true);
 
         // Find the user and add the movie to their films list
-        foreach ($data['users'] as &$user) {
+        $data['users'] = array_map(function ($user) use ($userId, $movieId) {
             if ($user['id'] == $userId) {
-                $movieExists = false;
-                foreach ($user['films'] as &$film) {
-                    if ($film['id'] == $movieId) {
-                        $movieExists = true;
-                        $film['isWatchLater'] = true; // Update isWatchLater if the movie already exists
-                        break;
-                    }
-                }
-                if (!$movieExists) {
+                $movieExists = array_filter($user['films'], fn($film) => $film['id'] == $movieId);
+                if ($movieExists) {
+                    $user['films'] = array_map(function ($film) use ($movieId) {
+                        if ($film['id'] == $movieId) {
+                            $film['isWatchLater'] = $film['isWatchLater'] == true ? false : true;
+                        }
+                        return $film;
+                    }, $user['films']);
+                } else {
                     $user['films'][] = [
                         'id' => $movieId,
                         'isWatchLater' => true
                     ];
                 }
-                break;
             }
-        }
+            return $user;
+        }, $data['users']);
 
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
-            error_log("Failed to write to file: " . $filePath);
             return ['error' => 'Failed to write to users.json'];
         }
 
@@ -176,29 +175,28 @@ class MovieActionsModel
         $data = json_decode($jsonContent, true);
 
         // Find the user and add the movie to their films list
-        foreach ($data['users'] as &$user) {
+        $data['users'] = array_map(function ($user) use ($userId, $movieId) {
             if ($user['id'] == $userId) {
-                $movieExists = false;
-                foreach ($user['films'] as &$film) {
-                    if ($film['id'] == $movieId) {
-                        $movieExists = true;
-                        $film['isWatched'] = true; // Update isWatched if the movie already exists
-                        break;
-                    }
-                }
-                if (!$movieExists) {
+                $movieExists = array_filter($user['films'], fn($film) => $film['id'] == $movieId);
+                if ($movieExists) {
+                    $user['films'] = array_map(function ($film) use ($movieId) {
+                        if ($film['id'] == $movieId) {
+                            $film['isWatched'] = $film['isWatched'] == true ? false : true;
+                        }
+                        return $film;
+                    }, $user['films']);
+                } else {
                     $user['films'][] = [
                         'id' => $movieId,
                         'isWatched' => true
                     ];
                 }
-                break;
             }
-        }
+            return $user;
+        }, $data['users']);
 
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
-            error_log("Failed to write to file: " . $filePath);
             return ['error' => 'Failed to write to users.json'];
         }
 
@@ -220,26 +218,28 @@ class MovieActionsModel
         $data = json_decode($jsonContent, true);
 
         // Find the user and add the rating to the movie in their films list
-        foreach ($data['users'] as &$user) {
+        $data['users'] = array_map(function ($user) use ($userId, $movieId, $rating) {
             if ($user['id'] == $userId) {
-                foreach ($user['films'] as &$film) {
-                    if ($film['id'] == $movieId) {
-                        $film['rating'] = $rating; // Update rating if the movie already exists
-                        break 2;
-                    }
+                $movieExists = array_filter($user['films'], fn($film) => $film['id'] == $movieId);
+                if ($movieExists) {
+                    $user['films'] = array_map(function ($film) use ($movieId, $rating) {
+                        if ($film['id'] == $movieId) {
+                            $film['rating'] = $rating;
+                        }
+                        return $film;
+                    }, $user['films']);
+                } else {
+                    $user['films'][] = [
+                        'id' => $movieId,
+                        'rating' => $rating
+                    ];
                 }
-                // If the movie does not exist in the user's list, add it with the rating
-                $user['films'][] = [
-                    'id' => $movieId,
-                    'rating' => $rating
-                ];
-                break;
             }
-        }
+            return $user;
+        }, $data['users']);
 
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
-            error_log("Failed to write to file: " . $filePath);
             return ['error' => 'Failed to write to users.json'];
         }
 

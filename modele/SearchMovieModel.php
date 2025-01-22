@@ -46,11 +46,14 @@ class SearchMovieModel
 
         $movies = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
-        // Check if the required fields are present
-        foreach ($movies['results'] as $movie) {
-            if (!isset($movie['poster_path'], $movie['title'], $movie['id'])) {
-                return json_encode(['error' => 'Missing required movie fields: poster_path, title, or id'], JSON_THROW_ON_ERROR);
-            }
+        // Check if the required fields are present in all movies
+        $requiredFields = ['poster_path', 'title', 'id'];
+        $missingFields = array_filter($movies['results'], function ($movie) use ($requiredFields) {
+            return count(array_diff_key(array_flip($requiredFields), $movie)) > 0;
+        });
+
+        if (!empty($missingFields)) {
+            return json_encode(['error' => 'Missing required movie fields: poster_path, title, or id'], JSON_THROW_ON_ERROR);
         }
 
         // Return the results as JSON

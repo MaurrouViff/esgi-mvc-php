@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class MovieInfosModel
 {
     private Client $client;
-    private mixed $apiKey;
+    private string $apiKey;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class MovieInfosModel
     /**
      * @throws GuzzleException
      */
-    public function MovieInfos(int $query = 0): false|string
+    public function MovieInfos(int $query): array
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/' . $query, [
             'headers' => [
@@ -31,12 +31,14 @@ class MovieInfosModel
             ],
             'verify' => false, // Disable SSL verification
         ]);
+
         $movie = json_decode($response->getBody(), true);
+
         // Check if the required fields are present
         if (!isset($movie['title'], $movie['overview'], $movie['vote_average'], $movie['release_date'], $movie['poster_path'], $movie['genres'])) {
-            return json_encode(['error' => 'Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres'], JSON_THROW_ON_ERROR);
+            return ['error' => 'Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres'];
         }
 
-        return json_encode($movie);
+        return $movie;
     }
 }

@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $racine = dirname(__FILE__, 2);
-include_once "$racine/modele/profilModel.php";
 include_once "$racine/modele/Users.php";
 
 if(session_status() == PHP_SESSION_NONE) {

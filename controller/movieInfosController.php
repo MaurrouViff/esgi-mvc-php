@@ -14,17 +14,9 @@ $query = $_GET['id'] ?? '';
 if (empty($query)) {
     $movie = ['error' => 'Missing required movie ID'];
 } else {
-    $response = $model->MovieInfos((int)$query);
-    if (isset($response['error'])) {
-        $movie = $response;
-    } else {
-        try {
-            $movie = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception $e) {
-            $movie = ['error' => $e->getMessage()];
-        }
-    }
+    $movie = $model->MovieInfos((int)$query);
 }
-$titre = $movie['title'];
+
+$titre = $movie['title'] ?? 'Unknown Title';
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueMovieInfos.php";

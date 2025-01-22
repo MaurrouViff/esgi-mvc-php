@@ -7,7 +7,6 @@ error_reporting(E_ALL);
 $racine = dirname(__FILE__, 2);
 
 include "$racine/modele/Users.php";
-$classUsers = new Users();
 
 include_once "$racine/modele/Authentification.php";
 

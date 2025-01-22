@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class FetchMovieModel
 {
     private Client $client;
-    private mixed $apiKey;
+    private string $apiKey;
 
     public function __construct()
     {
@@ -22,10 +22,12 @@ class FetchMovieModel
     }
 
     /**
-     * @throws GuzzleException|JsonException
-     * @throws Exception
+     * Fetch popular movies from the API.
+     *
+     * @return array
+     * @throws GuzzleException
      */
-    public function FetchMovie(): mixed
+    public function FetchMovie(): array
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/popular', [
             'query' => [
@@ -42,11 +44,14 @@ class FetchMovieModel
 
         $movies = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
-        // Check if the required fields are present
-        foreach ($movies['results'] as $movie) {
-            if (!isset($movie['release_date'], $movie['title'], $movie['id'])) {
-                return ['error' => 'Missing required movie fields: release_date, title, or id'];
-            }
+        // Check if the required fields are present in all movies
+        $requiredFields = ['release_date', 'title', 'id'];
+        $missingFields = array_filter($movies['results'], function ($movie) use ($requiredFields) {
+            return count(array_diff_key(array_flip($requiredFields), $movie)) > 0;
+        });
+
+        if (!empty($missingFields)) {
+            return ['error' => 'Missing required movie fields: release_date, title, or id'];
         }
 
         // Return the movie data directly
