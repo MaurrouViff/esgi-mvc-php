@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 $racine = dirname(__FILE__, 2);
 
-include "$racine/modele/searchMovieModel.php";
+include "$racine/modele/SearchMovieModel.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $csrf_token = $_GET['csrf_token'] ?? '';
