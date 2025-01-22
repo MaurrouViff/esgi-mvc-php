@@ -76,9 +76,9 @@ $movies = [];
                             movieItem.className = 'movie-item';
                             movieItem.innerHTML = `
                                 <a href="?action=movieDetails&id=${encodeURIComponent(movie.id)}">
-                                    <img src="https://image.tmdb.org/t/p/w200${encodeURIComponent(movie.poster_path)}" alt="${encodeURIComponent(movie.title)}">
-                                    <h3>${encodeURIComponent(movie.title)}</h3>
-                                    <p>${encodeURIComponent(movie.release_date)}</p>
+                                    <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+                                    <h3>${movie.title}</h3>
+                                    <p>${movie.release_date}</p>
                                 </a>
                             `;
                             movieList.appendChild(movieItem);

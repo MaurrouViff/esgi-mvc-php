@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once(__DIR__ . '/../vendor/autoload.php');
@@ -42,9 +43,16 @@ class FetchMovieModel
             'verify' => false, // Disable SSL verification
         ]);
 
-        $movie = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $movies = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
+        // Check if the required fields are present
+        foreach ($movies['results'] as $movie) {
+            if (!isset($movie['release_date'], $movie['title'], $movie['id'])) {
+                throw new Exception('Missing required movie fields: poster_path, title, or id');
+            }
+        }
+        
         // Return the movie data directly
-        return $movie;
+        return $movies;
     }
 }
