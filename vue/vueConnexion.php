@@ -1,3 +1,4 @@
+<section>
 <h1>Connexion / Inscription</h1>
 <form method="POST">
     <label for="nom">Nom d'utilisateur :</label>
@@ -9,3 +10,4 @@
     <button type="submit" name="action" value="login" class="input-blue">Se connecter</button>
     <button type="submit" name="action" value="register" class="input-red">S'inscrire</button>
 </form>
+</section>
