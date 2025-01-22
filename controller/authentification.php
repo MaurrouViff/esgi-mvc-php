@@ -21,10 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = Authentification::login($nom, $motDePasse);
         if ($result['status'] === "success") {
             $_SESSION['user'] = $result['user'];
-            $message = $result['message'];
-        } else {
-            $message = $result['message'];
         }
+        $message = $result['message'];
     } else {
         $message = "Action non reconnue.";
     }
