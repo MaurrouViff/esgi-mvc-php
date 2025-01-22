@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+session_start();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,14 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = $_GET['content'] ?? '';
 
     $results = null; // Initialize the $results variable
-
-    try {
-        $results = $model->searchMovie($query);
-        $movies = json_decode($results, true); // Decode the JSON string to an array
-    } catch (Exception $e) {
-        $error = ['error' => $e->getMessage()];
-    }
-
 
     try {
         if (empty($query)) {
