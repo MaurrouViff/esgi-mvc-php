@@ -19,7 +19,7 @@
         {
             "id": 1,
             "nom": "a",
-            "mot_de_passe": "",
+            "mot_de_passe": "a",
             "friends_id": [],
             "friends_request_id": [],
             "films": [

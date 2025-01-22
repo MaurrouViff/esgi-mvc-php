@@ -33,6 +33,7 @@ switch ($_POST['action'] ?? '') {
         // No action or unknown action
         break;
 }
+$titre = "Profil";
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueProfil.php";
 include "$racine/vue/vueFooter.php";
