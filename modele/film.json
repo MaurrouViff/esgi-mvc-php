@@ -160,6 +160,27 @@
             "description": "After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she&#039;s ever faced.",
             "image": "https://image.tmdb.org/t/p/w500/aLVkiINlIeCkcZIzb7XHzPYgO6L.jpg",
             "durée": "100 minutes"
+        },
+        {
+            "id": 539972,
+            "titre": "Kraven the Hunter",
+            "description": "Kraven Kravinoff&#039;s complex relationship with his ruthless gangster father, Nikolai, starts him down a path of vengeance with brutal consequences, motivating him to become not only the greatest hunter in the world, but also one of its most feared.",
+            "image": "https://image.tmdb.org/t/p/w500/i47IUSsN126K11JUzqQIOi1Mg1M.jpg",
+            "durée": "127 minutes"
+        },
+        {
+            "id": 1000075,
+            "titre": "The Price of Money: A Largo Winch Adventure",
+            "description": "Largo Winch, devastated by the kidnapping of his son, realizes that if he finds those responsible for his bankruptcy, maybe he&#039;ll see his son again.",
+            "image": "https://image.tmdb.org/t/p/w500/myS41ZUmFvslkT8LeD2irAKxyrf.jpg",
+            "durée": "100 minutes"
+        },
+        {
+            "id": 762509,
+            "titre": "Mufasa: The Lion King",
+            "description": "Mufasa, a cub lost and alone, meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of a group of misfits searching for their destiny.",
+            "image": "https://image.tmdb.org/t/p/w500/jbOSUAWMGzGL1L4EaUF8K6zYFo7.jpg",
+            "durée": "118 minutes"
         }
     ]
 }

@@ -19,21 +19,37 @@ if (!empty($movieId) && !empty($action) && !empty($movieDetails)) {
     try {
         switch ($action) {
             case 'favorite':
-                $model->addToFavorites((int)$movieId, (array)$movieDetails);
-                $response = ['success' => true, 'message' => 'Update favorite'];
+                $result = $model->addToFavorites((int)$movieId, (array)$movieDetails);
+                if (isset($result['error'])) {
+                    $response = ['success' => false, 'message' => $result['error']];
+                } else {
+                    $response = ['success' => true, 'message' => 'Update favorite'];
+                }
                 break;
             case 'watch_later':
-                $model->addToWatchLater((int)$movieId, (array)$movieDetails);
-                $response = ['success' => true, 'message' => 'Update watch later'];
+                $result = $model->addToWatchLater((int)$movieId, (array)$movieDetails);
+                if (isset($result['error'])) {
+                    $response = ['success' => false, 'message' => $result['error']];
+                } else {
+                    $response = ['success' => true, 'message' => 'Update watch later'];
+                }
                 break;
             case 'watched':
-                $model->markAsWatched((int)$movieId, (array)$movieDetails);
-                $response = ['success' => true, 'message' => 'Update watched'];
+                $result = $model->markAsWatched((int)$movieId, (array)$movieDetails);
+                if (isset($result['error'])) {
+                    $response = ['success' => false, 'message' => $result['error']];
+                } else {
+                    $response = ['success' => true, 'message' => 'Update watched'];
+                }
                 break;
             case 'rate':
                 if ($rating !== null) {
-                    $model->rateMovie((int)$movieId, (int)$rating);
-                    $response = ['success' => true, 'message' => 'Movie rated'];
+                    $result = $model->rateMovie((int)$movieId, (int)$rating);
+                    if (isset($result['error'])) {
+                        $response = ['success' => false, 'message' => $result['error']];
+                    } else {
+                        $response = ['success' => true, 'message' => 'Movie rated'];
+                    }
                 } else {
                     $response = ['success' => false, 'message' => 'Missing rating'];
                 }

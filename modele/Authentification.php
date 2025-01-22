@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 class Authentification {
     private static function getFilePath(): string {
-
         return dirname(__FILE__) . '/users.json';
     }
 
@@ -18,7 +17,6 @@ class Authentification {
     }
 
     private static function writeJson(array $data): void {
-
         $filePath = self::getFilePath();
         file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT));
     }
@@ -26,15 +24,12 @@ class Authentification {
     public static function register(string $nom, string $motDePasse): string {
         $data = self::readJson();
 
-
-        foreach ($data['users'] as $user) {
-            if ($user['nom'] === $nom) {
-                return "Cet utilisateur existe déjà.";
-            }
+        $userExists = array_filter($data['users'], fn($user) => $user['nom'] === $nom);
+        if (!empty($userExists)) {
+            return "Cet utilisateur existe déjà.";
         }
 
         $passwordHashed = password_hash($motDePasse, PASSWORD_DEFAULT);
-
 
         $newUser = [
             "id" => count($data['users']) + 1,
@@ -46,7 +41,6 @@ class Authentification {
         ];
         $data['users'][] = $newUser;
 
-
         self::writeJson($data);
 
         return "Inscription réussie.";
@@ -55,14 +49,19 @@ class Authentification {
     public static function login(string $nom, string $motDePasse): array {
         $data = self::readJson();
 
-        foreach ($data['users'] as $user) {
+        $user = array_reduce($data['users'], function ($carry, $user) use ($nom, $motDePasse) {
             if ($user['nom'] === $nom && password_verify($motDePasse, $user['mot_de_passe'])) {
-                return [
-                    "status" => "success",
-                    "message" => "Connexion réussie.",
-                    "user" => $user
-                ];
+                $carry = $user;
             }
+            return $carry;
+        }, null);
+
+        if ($user) {
+            return [
+                "status" => "success",
+                "message" => "Connexion réussie.",
+                "user" => $user
+            ];
         }
 
         return [

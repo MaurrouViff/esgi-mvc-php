@@ -1,29 +1,32 @@
 <?php
+
 declare(strict_types=1);
-class Users {
-    private mixed $data;
-    private static function getFilePath(): string {
+class Users
+{
+    private $data;
+    private static function getFilePath(): string
+    {
         return dirname(__FILE__) . '/users.json';
     }
-    public function __construct(int $userId) {
+    public function __construct(int $userId)
+    {
         $filePath = self::getFilePath();
         $this->data = json_decode(file_get_contents($filePath), true);
         if (file_exists($filePath) or !isset($userId)) {
-            if ($userId !== 0 ) {
+            if ($userId !== 0) {
                 foreach ($this->data['users'] as &$user) {
                     if ($user['id'] == $userId) {
                         $this->data = $user;
                     }
                 }
             }
-
-
         } else {
             $this->data = [];
         }
     }
 
-    public function recupUserById(int $id) : array|null {
+    public function recupUserById(int $id): array|null
+    {
         $data = json_decode(file_get_contents(self::getFilePath()), true);
         foreach ($data["users"] as $user) {
             if ($user['id'] == $id) {
@@ -39,10 +42,13 @@ class Users {
      * @param int $friendId The ID of the friend to be accepted.
      * @return array An array containing the success status and a message.
      */
-    public function acceptFriend(int $userId, int $friendId): array {
+    public function acceptFriend(int $userId, int $friendId): array
+    {
         // Load all user data from the JSON file
         $alldata = json_decode(file_get_contents(self::getFilePath()), true);
-
+        if (is_null($alldata)) {
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
         // Iterate through all users to find the user with the given userId
         foreach ($alldata["users"] as &$user) {
             if ($user['id'] == $userId) {
@@ -79,17 +85,20 @@ class Users {
         return ['success' => false, 'message' => 'Failed to accept friend'];
     }
 
-    public function getAllUsersNotFriend(int $userId): array {
+    public function getAllUsersNotFriend(int $userId): array
+    {
         $filePath = self::getFilePath();
-        $data = json_decode(file_get_contents($filePath), true);
+        $alldata = json_decode(file_get_contents($filePath), true);
         $notFriends = [];
-
-        foreach ($data['users'] as $user) {
+        if (is_null($alldata)) {
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
+        foreach ($alldata['users'] as $user) {
             // ajoute tout les id utilisateur
             $notFriends[] = $user;
         }
         // retire l'utilisateur connecté et ses amies de la liste
-        foreach ($data['users'] as $key => $user) {
+        foreach ($alldata['users'] as $key => $user) {
             if ($user['id'] == $userId) {
                 unset($notFriends[$key]);
             }
@@ -101,15 +110,18 @@ class Users {
 
         return $notFriends;
     }
-    public function addFriend(int $userId, int $friendId): array {
+    public function addFriend(int $userId, int $friendId): array
+    {
         // Load all user data from the JSON file
         $alldata = json_decode(file_get_contents(self::getFilePath()), true);
-
+        if (is_null($alldata)) {
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
         // Iterate through all users to find the user with the given friendId
         foreach ($alldata["users"] as &$user) {
             if ($user['id'] == $friendId) {
                 // Check if the userId is already in the friend's friends list
-                if (!empty($user["friends_id"]) > 0) {
+                if (!empty($user["friends_id"])) {
                     if (in_array($userId, $user["friends_id"])) {
                         return ['success' => false, 'message' => 'Already friends'];
                     }
@@ -117,7 +129,7 @@ class Users {
 
 
                 // Check if the userId is already in the friend's friend requests
-                if (!empty($user["friends_request_id"]) > 0) {
+                if (!empty($user["friends_request_id"])) {
                     if (in_array($userId, $user["friends_request_id"])) {
                         return ['success' => false, 'message' => 'Friend request already sent'];
                     }
@@ -132,7 +144,7 @@ class Users {
                 // Return success message
                 return ['success' => true, 'message' => 'Friend request sent'];
             }
-            if($user['id']== $userId){
+            if ($user['id'] == $userId) {
                 $_SESSION['user'] = $user;
             }
         }
@@ -140,8 +152,37 @@ class Users {
         // Return failure message if the friend was not found
         return ['success' => false, 'message' => 'User not found'];
     }
-    private function saveData(): void {
-        $filePath = self::getFilePath();
-        file_put_contents($filePath, json_encode($this->data, JSON_PRETTY_PRINT));
+    public function rejectFriendRequest(int $userId, int $friendId): array
+    {
+        // Load all user data from the JSON file
+        $alldata = json_decode(file_get_contents(self::getFilePath()), true);
+        if (is_null($alldata)) {
+            return ['success' => false, 'message' => 'Failed to open file'];
+        }
+        // Iterate through all users to find the user with the given userId
+        foreach ($alldata["users"] as &$user) {
+            if ($user['id'] == $userId) {
+                // Search for the friendId in the user's friend requests
+                $key = array_search($friendId, $user["friends_request_id"]);
+
+                // If the friendId is found in the friend requests
+                if ($key !== false) {
+                    // Remove the friendId from the friend requests
+                    unset($user["friends_request_id"][$key]);
+
+                    // Save the updated data back to the JSON file
+                    file_put_contents(self::getFilePath(), json_encode($alldata, JSON_PRETTY_PRINT));
+
+                    // Update the session with the new user data
+                    $_SESSION['user'] = $user;
+
+                    // Return success message
+                    return ['success' => true, 'message' => 'Friend request rejected'];
+                }
+            }
+        }
+
+        // Return failure message if the friend request was not found
+        return ['success' => false, 'message' => 'Failed to reject friend request'];
     }
 }

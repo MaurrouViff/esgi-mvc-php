@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 class AccountManager
@@ -15,17 +16,15 @@ class AccountManager
 
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-        // Parcourir les utilisateurs et mettre à jour le mot de passe
-        foreach ($data['users'] as &$user) {
+        // Mettre à jour le mot de passe de l'utilisateur
+        $data['users'] = array_map(function ($user) use ($username, $hashedPassword) {
             if ($user['nom'] === $username) {
                 $user["mot_de_passe"] = $hashedPassword;
-
-                // Enregistrer les données mises à jour dans le fichier JSON
-                return file_put_contents(self::DB_FILE, json_encode($data, JSON_PRETTY_PRINT)) !== false;
             }
-        }
-        return false;
+            return $user;
+        }, $data['users']);
+
+        // Enregistrer les données mises à jour dans le fichier JSON
+        return file_put_contents(self::DB_FILE, json_encode($data, JSON_PRETTY_PRINT)) !== false;
     }
-
-
 }
