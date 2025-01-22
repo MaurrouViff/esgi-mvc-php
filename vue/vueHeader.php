@@ -25,4 +25,9 @@ if (session_status() == PHP_SESSION_NONE) {
             </li>
         </ul>
     </nav>
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <?php if (isset($_SESSION['user'])): ?>
+            Bonjour, <?= htmlspecialchars($_SESSION['user']['nom']); ?>!
+        <?php endif; ?>
+    </div>
 </header>
