@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Exception\GuzzleException;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -13,6 +15,7 @@ try {
     $response = $model->FetchMovie();
     header('Content-Type: application/json');
     echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-} catch (Exception $e) {
+
+} catch (GuzzleException $e) {
     echo json_encode(['error' => $e->getMessage()]);
 }

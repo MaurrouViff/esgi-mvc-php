@@ -14,7 +14,7 @@ class Users {
         }
     }
 
-    public function recupUserById($id) {
+    public function recupUserById($id): mixed {
         foreach ($this->data['users'] as $user) {
             if ($user['id'] == $id) {
                 return $user;

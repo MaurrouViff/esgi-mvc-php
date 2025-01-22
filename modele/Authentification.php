@@ -32,11 +32,13 @@ class Authentification {
             }
         }
 
+        $passwordHashed = password_hash($motDePasse, PASSWORD_DEFAULT);
+
 
         $newUser = [
             "id" => count($data['users']) + 1,
             "nom" => $nom,
-            "mot_de_passe" => $motDePasse,
+            "mot_de_passe" => $passwordHashed,
             "friends_id" => [],
             "friends_request_id" => [],
             "films" => []
@@ -53,7 +55,7 @@ class Authentification {
         $data = self::readJson();
 
         foreach ($data['users'] as $user) {
-            if ($user['nom'] === $nom && $user['mot_de_passe'] === $motDePasse) {
+            if ($user['nom'] === $nom && password_verify($motDePasse, $user['mot_de_passe'])) {
                 return [
                     "status" => "success",
                     "message" => "Connexion réussie.",

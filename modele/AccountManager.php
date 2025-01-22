@@ -13,10 +13,12 @@ class AccountManager
             return false; // Erreur ou structure incorrecte
         }
 
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
         // Parcourir les utilisateurs et mettre à jour le mot de passe
         foreach ($data['users'] as &$user) {
             if ($user['nom'] === $username) {
-                $user["mot_de_passe"] = $newPassword;
+                $user["mot_de_passe"] = $hashedPassword;
 
                 // Enregistrer les données mises à jour dans le fichier JSON
                 return file_put_contents(self::DB_FILE, json_encode($data, JSON_PRETTY_PRINT)) !== false;
@@ -24,4 +26,6 @@ class AccountManager
         }
         return false;
     }
+
+
 }

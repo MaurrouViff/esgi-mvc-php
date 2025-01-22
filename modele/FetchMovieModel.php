@@ -22,7 +22,7 @@ class FetchMovieModel
     /**
      * @throws GuzzleException
      */
-    public function FetchMovie()
+    public function FetchMovie(): mixed
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/popular', [
             'query' => [
