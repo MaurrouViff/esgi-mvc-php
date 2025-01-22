@@ -5,7 +5,6 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 
 class SearchMovieModel
 {
@@ -26,7 +25,6 @@ class SearchMovieModel
      *
      * @param string $query
      * @return string
-     * @throws GuzzleException
      */
     public function searchMovie(string $query): string
     {

@@ -1,14 +1,14 @@
 {
-    "exemples_de_données": {
+    "exemples_de_donn\u00e9es": {
         "id": "Identifiant unique de l'utilisateur (ex. 1)",
         "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
-        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')",
+        "mot_de_passe": "Mot de passe hach\u00e9 de l'utilisateur (ex. 'hashed_password_123')",
         "friends_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8)",
         "friends_request_id": "Identifiant unique de la demande d'ami de l'utilisateur (ex. 3,6,9)",
         "films": [
             {
                 "id": "Identifiant unique du film (ex. 1)",
-                "note": "Note attribuée par l'utilisateur au film (ex. 5)",
+                "note": "Note attribu\u00e9e par l'utilisateur au film (ex. 5)",
                 "isFavori": "Indique si le film est un favori de l'utilisateur (ex. true)",
                 "isVue": "Indique si l'utilisateur a vu le film (ex. true)",
                 "planToWatch": "Indique si l'utilisateur a l'intention de regarder le film (ex. true)"
@@ -17,80 +17,22 @@
     },
     "users": [
         {
-            "id": 1,
-            "nom": "a",
-            "mot_de_passe": "a",
-            "friends_id": [],
-            "friends_request_id": [],
-            "films": [
-                {
-                    "id": 1,
-                    "note": 5
-                },
-                {
-                    "id": 2,
-                    "note": 4
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "nom": "aurelien",
-            "mot_de_passe": "aurelien",
-            "friends_list": [],
-            "friends_request_id": [],
-            "films": []
-        },
-        {
-            "id": 3,
-            "nom": "e",
-            "mot_de_passe": "e",
-            "friends_id": [
-                4
-            ],
-            "friends_request_id": [],
-            "films": [
-                {
-                    "id": 1,
-                    "isFavorite": true
-                },
-                {
-                    "id": 920,
-                    "isFavorite": false,
-                    "isWatchLater": false,
-                    "isWatched": false,
-                    "rating": 4
-                },
-                {
-                    "id": 939243,
-                    "rating": 4,
-                    "isWatchLater": true
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "nom": "z",
-            "mot_de_passe": "z",
-            "friends_id": [
-                3
-            ],
-            "friends_request_id": [],
-            "films": []
-        },
-        {
             "id": 5,
             "nom": "test1",
-            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR/0/oz8gg7JO2",
+            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR\/0\/oz8gg7JO2",
             "friends_id": [],
-            "friends_request_id": [],
+            "friends_request_id": [
+                6
+            ],
             "films": []
         },
         {
             "id": 6,
             "nom": "abc",
             "mot_de_passe": "$2y$10$zClGwSrlcdw5rjdppprF7uSBqT2YgEoeF.c8Ek9vU38TIwD8WYec6",
-            "friends_id": [],
+            "friends_id": [
+                3
+            ],
             "friends_request_id": [],
             "films": [
                 {
@@ -113,6 +55,16 @@
                     "rating": 3
                 }
             ]
+        },
+        {
+            "id": 3,
+            "nom": "a",
+            "mot_de_passe": "$2y$10$B4w8j9wMtePMZZ3Lgdx5FedtT7PPW1zHiTv3vIiDJ6GmlR\/N3qkxW",
+            "friends_id": [
+                6
+            ],
+            "friends_request_id": [],
+            "films": []
         }
     ]
 }

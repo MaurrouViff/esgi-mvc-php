@@ -1,8 +1,7 @@
 <?php
 ini_set('display_errors', 1);
-if(session_status() == PHP_SESSION_NONE) {
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
-    
 }
 ?>
 <h1>Bienvenue, <?= htmlspecialchars($user['nom']); ?> !</h1>
@@ -11,7 +10,12 @@ if(session_status() == PHP_SESSION_NONE) {
 <ul>
     <li><strong>ID :</strong> <?= htmlspecialchars($user['id']); ?></li>
     <li><strong>Nom d'utilisateur :</strong> <?= htmlspecialchars($user['nom']); ?></li>
-    <li><strong>Films :</strong> <?= htmlspecialchars(json_encode($user['films'])); ?></li>
+</ul>
+<p>Liste de films :</p>
+<ul>
+    <?php foreach ($listeFilmNoms as $filmNom): ?>
+        <li><?= htmlspecialchars($filmNom); ?></li>
+    <?php endforeach; ?>
 </ul>
 <p>Liste d'amis :</p>
 <ul>
@@ -25,16 +29,16 @@ if(session_status() == PHP_SESSION_NONE) {
         <li>
             <?= htmlspecialchars($classUsers->recupUserById($requestId)['nom']); ?>
             <form method="post" action="?action=profil" style="display:inline;">
-            <input type="hidden" name="action" value="acceptFriend">
-            <input type="hidden" name="userId" value="<?= $_SESSION['user']['id']; ?>">
-            <input type="hidden" name="requestId" value="<?= $requestId; ?>">
-            <button type="submit">Accepter</button>
+                <input type="hidden" name="action" value="acceptFriend">
+                <input type="hidden" name="userId" value="<?= $_SESSION['user']['id']; ?>">
+                <input type="hidden" name="requestId" value="<?= $requestId; ?>">
+                <button type="submit">Accepter</button>
             </form>
             <form method="post" action="?action=profil" style="display:inline;">
-            <input type="hidden" name="action" value="rejectFriend">
-            <input type="hidden" name="userId" value="<?= $_SESSION['user']['id']; ?>">
-            <input type="hidden" name="requestId" value="<?= $requestId; ?>">
-            <button type="submit">Refuser</button>
+                <input type="hidden" name="action" value="rejectFriend">
+                <input type="hidden" name="userId" value="<?= $_SESSION['user']['id']; ?>">
+                <input type="hidden" name="requestId" value="<?= $requestId; ?>">
+                <button type="submit">Refuser</button>
             </form>
         </li>
     <?php endforeach; ?>
@@ -58,37 +62,37 @@ if(session_status() == PHP_SESSION_NONE) {
 </form>
 
 <script>
-document.querySelectorAll('.accept-request').forEach(function(element) {
-    element.addEventListener('click', function(event) {
-        event.preventDefault();
-        var requestId = this.getAttribute('data-request-id');
-        var userId = <?= $_SESSION['user']['id']; ?>;
-        fetch('../controller/profil.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                action:'acceptFriend',
-                userId: userId,
-                requestId: requestId
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("data", data);
-            
-            if (data.success) {
-                alert('Action completed successfully : ' + data.message);
-            } else {
-                alert('Action failed: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred');
+    document.querySelectorAll('.accept-request').forEach(function(element) {
+        element.addEventListener('click', function(event) {
+            event.preventDefault();
+            var requestId = this.getAttribute('data-request-id');
+            var userId = <?= $_SESSION['user']['id']; ?>;
+            fetch('../controller/profil.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'acceptFriend',
+                        userId: userId,
+                        requestId: requestId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("data", data);
+
+                    if (data.success) {
+                        alert('Action completed successfully : ' + data.message);
+                    } else {
+                        alert('Action failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+            console.log("la")
         });
-        console.log("la")
     });
-});
 </script>
