@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $results = null; // Initialize the $results variable
 
-try {
-    $results = $model->searchMovie($query);
-    $movies = json_decode($results, true); // Decode the JSON string to an array
-} catch (Exception $e) {
-    $error = ['error' => $e->getMessage()];
-}
+    try {
+        $results = $model->searchMovie($query);
+        $movies = json_decode($results, true); // Decode the JSON string to an array
+    } catch (Exception $e) {
+        $error = ['error' => $e->getMessage()];
+    }
 
 
     try {
