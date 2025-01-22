@@ -41,9 +41,9 @@
                 {
                     "id": 920,
                     "isFavorite": false,
-                    "isWatchLater": false,
+                    "isWatchLater": true,
                     "isWatched": false,
-                    "rating": 4
+                    "rating": 3
                 },
                 {
                     "id": 939243,
@@ -65,7 +65,7 @@
         {
             "id": 5,
             "nom": "test1",
-            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR\/0\/oz8gg7JO2",
+            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR/0/oz8gg7JO2",
             "friends_id": [],
             "friends_request_id": [],
             "films": []
