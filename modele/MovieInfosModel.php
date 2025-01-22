@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
@@ -34,14 +32,12 @@ class MovieInfosModel
             ],
             'verify' => false, // Disable SSL verification
         ]);
-
-        $movie = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
-
+        $movie = json_decode($response->getBody(), true);
         // Check if the required fields are present
         if (!isset($movie['title'], $movie['overview'], $movie['vote_average'], $movie['release_date'], $movie['poster_path'], $movie['genres'])) {
             throw new Exception('Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres');
         }
 
-        return json_encode($movie, JSON_THROW_ON_ERROR);
+        return json_encode($movie);
     }
 }

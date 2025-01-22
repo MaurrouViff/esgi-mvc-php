@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class AccountManager
 {
-    private const DB_FILE = __DIR__ . "/users.json";
+    private const string DB_FILE = __DIR__ . "/users.json";
 
     public static function changePassword(string $username, string $newPassword): bool
     {

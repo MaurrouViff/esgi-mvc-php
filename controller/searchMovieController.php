@@ -1,9 +1,4 @@
 <?php
-declare(strict_types=1);
-
-session_start();
-
-use GuzzleHttp\Exception\GuzzleException;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -27,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 try {
     $results = $model->searchMovie($query);
     $movies = json_decode($results, true); // Decode the JSON string to an array
-} catch (GuzzleException $e) {
+} catch (Exception $e) {
     $error = ['error' => $e->getMessage()];
 }
 

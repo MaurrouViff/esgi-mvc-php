@@ -42,7 +42,7 @@ class SearchMovieModel
             'verify' => false, // Disable SSL verification
         ]);
 
-        $movies = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $movies = json_decode($response->getBody(), true);
 
         // Check if the required fields are present
         foreach ($movies['results'] as $movie) {
@@ -52,6 +52,6 @@ class SearchMovieModel
         }
 
         // Return the results as JSON
-        return json_encode(['results' => $movies['results']], JSON_THROW_ON_ERROR);
+        return json_encode(['results' => $movies['results']]);
     }
 }
