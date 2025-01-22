@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 class Users {
-    private $data;
+    private mixed $data;
     private static function getFilePath(): string {
         return dirname(__FILE__) . '/users.json';
     }
@@ -21,7 +22,8 @@ class Users {
         }
         return null;
     }
-    public function acceptFriend($userId, $friendId) {
+    public function acceptFriend($userId, $friendId): bool
+    {
     foreach ($this->data['users'] as &$user) {
         if ($user['id'] == $userId) {
             if (!isset($user['friends'])) {
@@ -38,7 +40,8 @@ class Users {
     return false;
 }
 
-private function saveData() {
+private function saveData(): void
+{
     $filePath = self::getFilePath();
     file_put_contents($filePath, json_encode($this->data, JSON_PRETTY_PRINT));
 }

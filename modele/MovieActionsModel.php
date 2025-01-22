@@ -3,7 +3,7 @@ session_start();
 
 class MovieActionsModel
 {
-    private $movies;
+    private mixed $movies;
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class MovieActionsModel
         $this->movies = $data['film'] ?? [];
     }
 
-    private function movieExists(int $movieId)
+    private function movieExists(int $movieId): bool
     {
         foreach ($this->movies as $movie) {
             if ($movie['id'] == $movieId) {
@@ -42,7 +42,10 @@ class MovieActionsModel
         return false;
     }
 
-    private function addFilmIfNotExists(int $movieId, array $movieDetails)
+    /**
+     * @throws Exception
+     */
+    private function addFilmIfNotExists(int $movieId, array $movieDetails): void
     {
         if (!$this->movieExists($movieId)) {
             // Add the movie to films.json
@@ -67,7 +70,10 @@ class MovieActionsModel
         }
     }
 
-    public function addToFavorites(int $movieId, array $movieDetails)
+    /**
+     * @throws Exception
+     */
+    public function addToFavorites(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -110,7 +116,10 @@ class MovieActionsModel
         }
     }
 
-    public function addToWatchLater(int $movieId, array $movieDetails)
+    /**
+     * @throws Exception
+     */
+    public function addToWatchLater(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -153,7 +162,10 @@ class MovieActionsModel
         }
     }
 
-    public function markAsWatched(int $movieId, array $movieDetails)
+    /**
+     * @throws Exception
+     */
+    public function markAsWatched(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
         $this->addFilmIfNotExists($movieId, $movieDetails);
@@ -196,7 +208,10 @@ class MovieActionsModel
         }
     }
 
-    public function rateMovie(int $movieId, int $rating)
+    /**
+     * @throws Exception
+     */
+    public function rateMovie(int $movieId, int $rating): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
 
