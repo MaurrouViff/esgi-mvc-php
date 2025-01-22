@@ -23,7 +23,8 @@ class FetchMovieModel
     }
 
     /**
-     * @throws GuzzleException
+     * @throws GuzzleException|JsonException
+     * @throws Exception
      */
     public function FetchMovie(): mixed
     {
