@@ -24,25 +24,25 @@ class Users {
     }
     public function acceptFriend($userId, $friendId): bool
     {
-    foreach ($this->data['users'] as &$user) {
-        if ($user['id'] == $userId) {
-            if (!isset($user['friends'])) {
-                $user['friends'] = [];
-            }
-            if (!in_array($friendId, $user['friends'])) {
-                $user['friend_id'][] = $friendId;
-                $user['friend_request_id'] = array_diff($user['friend_request_id'], [$friendId]);
-                $this->saveData();
-                return true;
+        foreach ($this->data['users'] as &$user) {
+            if ($user['id'] == $userId) {
+                if (!isset($user['friends'])) {
+                    $user['friends'] = [];
+                }
+                if (!in_array($friendId, $user['friends'])) {
+                    $user['friend_id'][] = $friendId;
+                    $user['friend_request_id'] = array_diff($user['friend_request_id'], [$friendId]);
+                    $this->saveData();
+                    return true;
+                }
             }
         }
+        return false;
     }
-    return false;
-}
 
-private function saveData(): void
-{
-    $filePath = self::getFilePath();
-    file_put_contents($filePath, json_encode($this->data, JSON_PRETTY_PRINT));
-}
+    private function saveData(): void
+    {
+        $filePath = self::getFilePath();
+        file_put_contents($filePath, json_encode($this->data, JSON_PRETTY_PRINT));
+    }
 }
