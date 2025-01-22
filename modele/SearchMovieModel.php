@@ -27,6 +27,7 @@ class SearchMovieModel
      * @param string $query
      * @return string
      * @throws GuzzleException
+     * @throws JsonException
      */
     public function searchMovie(string $query): string
     {

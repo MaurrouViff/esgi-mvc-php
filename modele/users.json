@@ -65,7 +65,23 @@
         {
             "id": 5,
             "nom": "test1",
-            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR/0/oz8gg7JO2",
+            "mot_de_passe": "$2y$10$mxo1fxJzuNsgXOVqG2qqT.P1AHRtICmxxF.JvHRvR\/0\/oz8gg7JO2",
+            "friends_id": [],
+            "friends_request_id": [],
+            "films": []
+        },
+        {
+            "id": 6,
+            "nom": "test",
+            "mot_de_passe": "$2y$10$7qS2GPadZc3nHDH28vWS1.9iBqew\/rJe5swEhWx3.TYEPFskfGZ8G",
+            "friends_id": [],
+            "friends_request_id": [],
+            "films": []
+        },
+        {
+            "id": 7,
+            "nom": "ta_mere",
+            "mot_de_passe": "$2y$10$hnTUUkAqmmUiKfqMMLJzyedoI.1P7nepV.5tDmx5S3IxO0Mv88tAa",
             "friends_id": [],
             "friends_request_id": [],
             "films": []

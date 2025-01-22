@@ -20,7 +20,7 @@ class MovieInfosModel
     }
 
     /**
-     * @throws GuzzleException
+     * @throws GuzzleException|JsonException
      */
     public function MovieInfos(int $query = 0): false|string
     {
