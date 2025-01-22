@@ -48,7 +48,7 @@ class SearchMovieModel
 
         // Check if the required fields are present
         foreach ($movies['results'] as $movie) {
-            if (!isset($movie['poster_pat'], $movie['title'], $movie['id'])) {
+            if (!isset($movie['poster_path'], $movie['title'], $movie['id'])) {
                 return json_encode(['error' => 'Missing required movie fields: poster_path, title, or id'], JSON_THROW_ON_ERROR);
             }
         }
