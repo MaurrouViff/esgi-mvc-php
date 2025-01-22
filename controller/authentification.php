@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 $racine = dirname(__FILE__, 2);
 
 include "$racine/modele/Users.php";
+$classUsers = new Users();
 
 include_once "$racine/modele/Authentification.php";
 
@@ -18,22 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['nom'] ?? '';
     $motDePasse = $_POST['mot_de_passe'] ?? '';
 
-    switch ($action) {
-        case 'register':
-            $message = Authentification::register($nom, $motDePasse);
-            break;
-        case 'login';
-            $result = Authentification::login($nom, $motDePasse);
-            if ($result['status'] === "success") {
-                $_SESSION['user'] = $result['user'];
-                $message = $result['message'];
-            } else {
-                $message = $result['message'];
-            }
-            break;
-        default:
-            $message = "Action non reconnue.";
-            break;
+    if ($action === 'register') {
+        $message = Authentification::register($nom, $motDePasse);
+    } elseif ($action === 'login') {
+        $result = Authentification::login($nom, $motDePasse);
+        if ($result['status'] === "success") {
+            $_SESSION['user'] = $result['user'];
+        }
+        $message = $result['message'];
+    } else {
+        $message = "Action non reconnue.";
     }
     
 }

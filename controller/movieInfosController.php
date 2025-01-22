@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -26,6 +25,6 @@ if (empty($query)) {
         }
     }
 }
-
+$titre = $movie['title'];
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueMovieInfos.php";

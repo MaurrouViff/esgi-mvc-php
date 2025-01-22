@@ -1,11 +1,9 @@
 <?php
-declare(strict_types=1);
-
 session_start();
 
 class MovieActionsModel
 {
-    private array $movies;
+    private mixed $movies;
 
     public function __construct()
     {
@@ -136,7 +134,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatchLater'] = !$film['isWatchLater'];
+                        $film['isWatchLater'] = true; // Update isWatchLater if the movie already exists
                         break;
                     }
                 }
@@ -184,7 +182,7 @@ class MovieActionsModel
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
                         $movieExists = true;
-                        $film['isWatched'] = !$film['isWatched'];
+                        $film['isWatched'] = true; // Update isWatched if the movie already exists
                         break;
                     }
                 }
@@ -226,7 +224,7 @@ class MovieActionsModel
             if ($user['id'] == $userId) {
                 foreach ($user['films'] as &$film) {
                     if ($film['id'] == $movieId) {
-                        $film['rating'] = $rating;
+                        $film['rating'] = $rating; // Update rating if the movie already exists
                         break 2;
                     }
                 }
