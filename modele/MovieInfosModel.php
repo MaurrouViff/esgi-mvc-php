@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class MovieInfosModel
 {
     private Client $client;
-    private string $apiKey;
+    private mixed $apiKey;
 
     public function __construct()
     {
@@ -22,14 +22,10 @@ class MovieInfosModel
     }
 
     /**
-     * Fetch movie information from the API.
-     *
-     * @param int $query
-     * @return string
      * @throws GuzzleException
      * @throws Exception
      */
-    public function MovieInfos(int $query = 0): string
+    public function MovieInfos(int $query = 0): false|string
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/' . $query, [
             'headers' => [

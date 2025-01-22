@@ -5,7 +5,7 @@ session_start();
 
 class MovieActionsModel
 {
-    private array $movies;
+    private mixed $movies;
 
     public function __construct()
     {
@@ -44,6 +44,9 @@ class MovieActionsModel
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     private function addFilmIfNotExists(int $movieId, array $movieDetails): void
     {
         if (!$this->movieExists($movieId)) {
@@ -69,6 +72,9 @@ class MovieActionsModel
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function addToFavorites(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
@@ -112,6 +118,9 @@ class MovieActionsModel
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function addToWatchLater(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
@@ -155,6 +164,9 @@ class MovieActionsModel
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function markAsWatched(int $movieId, array $movieDetails): void
     {
         $userId = $_SESSION['user']['id'] ?? null;
@@ -198,6 +210,9 @@ class MovieActionsModel
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function rateMovie(int $movieId, int $rating): void
     {
         $userId = $_SESSION['user']['id'] ?? null;

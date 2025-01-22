@@ -6,11 +6,12 @@ class MainController {
         "defaut" => "accueil.php",
         'accueil' => "accueil.php",
         'search' => "searchMovieController.php",
-        'movieDetails' => "MovieInfosController.php",
-        "connexion" => "connexion.php",
+        'movieDetails' => "movieInfosController.php",
         "authentification" => "authentification.php",
         "logout" => "logout.php",
+        "updatePassword" => "updatePassword.php",
     );
+
 
 
     public static function execute(string $action): string {

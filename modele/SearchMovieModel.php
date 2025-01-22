@@ -11,7 +11,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class SearchMovieModel
 {
     private Client $client;
-    private string $apiKey;
+    private mixed $apiKey;
 
     public function __construct()
     {
@@ -23,14 +23,10 @@ class SearchMovieModel
     }
 
     /**
-     * Search for movies using the API.
-     *
-     * @param string $query
-     * @return string
      * @throws GuzzleException
      * @throws Exception
      */
-    public function searchMovie(string $query): string
+    public function searchMovie(string $query): false|string
     {
         $response = $this->client->request('GET', 'https://api.themoviedb.org/3/search/movie', [
             'query' => [

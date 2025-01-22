@@ -1,3 +1,4 @@
+<section>
 <h1>Bienvenue, <?= htmlspecialchars($user['nom']); ?> !</h1>
 
 <p>Voici vos informations :</p>
@@ -19,5 +20,16 @@
     <?php endforeach; ?>
 </ul>
 
+<p>Paramètres :</p>
+<h2>Changer de mot de passe</h2>
+<form action="./?action=updatePassword" method="post">
+    <label for="nom">Votre nom :</label><br />
+    <input type="text" id="nom" name="nom" required><br />
+    <label for="newPassword">Nouveau mot de passe :</label><br>
+    <input type="password" id="newPassword" name="newPassword" required><br>
+    <input type="submit" value="Changer le mot de passe">
+</form>
+
 
 <a href="./?action=logout">Se déconnecter</a>
+</section>

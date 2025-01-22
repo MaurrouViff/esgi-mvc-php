@@ -1,12 +1,12 @@
 <?php
-
+declare(strict_types=1);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $racine = dirname(__FILE__, 2);
 
-include "$racine/modele/users.php";
+include "$racine/modele/Users.php";
 $classUsers = new Users();
 
 include_once "$racine/modele/Authentification.php";
@@ -24,10 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = Authentification::login($nom, $motDePasse);
         if ($result['status'] === "success") {
             $_SESSION['user'] = $result['user'];
-            $message = $result['message'];
-        } else {
-            $message = $result['message'];
         }
+        $message = $result['message'];
     } else {
         $message = "Action non reconnue.";
     }

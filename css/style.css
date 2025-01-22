@@ -41,3 +41,10 @@ a:hover {
 .input-red {
     background-color: red;
 }
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

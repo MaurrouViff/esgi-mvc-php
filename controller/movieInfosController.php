@@ -21,6 +21,6 @@ try {
 } catch (Exception $e) {
     $movie = ['error' => $e->getMessage()];
 }
-
+$titre = $movie['title'];
 include "$racine/vue/vueHeader.php";
 include "$racine/vue/vueMovieInfos.php";
