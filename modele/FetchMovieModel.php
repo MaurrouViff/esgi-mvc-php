@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 
 use Dotenv\Dotenv;
 
-class MovieInfosModel
+class FetchMovieModel
 {
     private $client;
     private $apiKey;
@@ -17,21 +17,24 @@ class MovieInfosModel
         $this->apiKey = $_ENV['TMDB_API_KEY'];
     }
 
-    public function MovieInfos(int $query = 0)
+    public function FetchMovie()
     {
-        $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/' . $query, [
+        $response = $this->client->request('GET', 'https://api.themoviedb.org/3/movie/popular', [
+            'query' => [
+                'include_adult' => 'false',
+                'language' => 'fr-FR',
+                'page' => '1',
+            ],
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->apiKey,
                 'accept' => 'application/json',
             ],
             'verify' => false, // Disable SSL verification
         ]);
-        $movie = json_decode($response->getBody(), true);
-        // Check if the required fields are present
-        if (!isset($movie['title'], $movie['overview'], $movie['vote_average'], $movie['release_date'], $movie['poster_path'], $movie['genres'])) {
-            throw new Exception('Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres');
-        }
 
-        return json_encode($movie);
+        $movie = json_decode($response->getBody(), true);
+
+        // Return the movie data directly
+        return $movie;
     }
 }

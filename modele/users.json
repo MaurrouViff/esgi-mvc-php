@@ -1,17 +1,44 @@
 {
+    "exemples_de_données": {
+        "id": "Identifiant unique de l'utilisateur (ex. 1)",
+        "nom": "Nom complet de l'utilisateur (ex. 'Jean Dupont')",
+        "mot_de_passe": "Mot de passe haché de l'utilisateur (ex. 'hashed_password_123')",
+        "friends_id": "Identifiant unique de l'ami de l'utilisateur (ex. 2,5,8)",
+        "friends_request_id": "Identifiant unique de la demande d'ami de l'utilisateur (ex. 3,6,9)",
+        "films": [
+            {
+                "id": "Identifiant unique du film (ex. 1)",
+                "note": "Note attribuée par l'utilisateur au film (ex. 5)",
+                "isFavori": "Indique si le film est un favori de l'utilisateur (ex. true)",
+                "isVue": "Indique si l'utilisateur a vu le film (ex. true)",
+                "planToWatch": "Indique si l'utilisateur a l'intention de regarder le film (ex. true)"
+            }
+        ]
+    },
     "users": [
         {
             "id": 1,
             "nom": "AUBRIET",
             "mot_de_passe": "oui",
             "friend_id": [],
-            "films": []
+            "friends_request_id": [],
+            "films": [
+                {
+                    "id": 1,
+                    "note": 5
+                },
+                {
+                    "id": 2,
+                    "note": 4
+                }
+            ]
         },
         {
             "id": 2,
             "nom": "test",
             "mot_de_passe": "test1",
             "friend_id": [],
+            "friends_request_id": [],
             "films": []
         },
         {
@@ -19,6 +46,34 @@
             "nom": "a",
             "mot_de_passe": "a",
             "friend_id": [],
+            "friends_request_id": [],
+            "films": [
+                {
+                    "id": 1,
+                    "isFavorite": true
+                },
+                {
+                    "id": 920,
+                    "isFavorite": false,
+                    "isWatchLater": false,
+                    "isWatched": false,
+                    "rating": 4
+                },
+                {
+                    "id": 939243,
+                    "rating": 4,
+                    "isWatchLater": true
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "nom": "z",
+            "mot_de_passe": "z",
+            "friends_id": [],
+            "friends_request_id": [
+                3
+            ],
             "films": []
         }
     ]

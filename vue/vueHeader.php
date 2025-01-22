@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +21,7 @@
                 <a href="./?action=accueil">Accueil</a>
             </li>
             <li class="nav-item">
-                <a href="./?action=authentification">Connexion</a>
+                <a href="./?action=authentification"><?= isset($_SESSION['user']) ? 'Profil' : 'Connexion'; ?></a>
             </li>
         </ul>
     </nav>
