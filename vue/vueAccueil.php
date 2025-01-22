@@ -68,7 +68,6 @@ $movies = [];
             fetch('./controller/fetchMoviesController.php')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Fetched data:', data); // Log the fetched data
                     const movieList = document.getElementById('movie-list');
                     if (data.results && data.results.length > 0) {
                         data.results.forEach(movie => {
@@ -83,6 +82,8 @@ $movies = [];
                             `;
                             movieList.appendChild(movieItem);
                         });
+                    } else if (data.error) {
+                        movieList.innerHTML = `<p>${data.error}</p>`;
                     } else {
                         movieList.innerHTML = '<p>No movies found.</p>';
                     }

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 require_once(__DIR__ . '/../vendor/autoload.php');
@@ -28,7 +27,6 @@ class SearchMovieModel
      * @param string $query
      * @return string
      * @throws GuzzleException
-     * @throws Exception
      */
     public function searchMovie(string $query): string
     {
@@ -50,8 +48,8 @@ class SearchMovieModel
 
         // Check if the required fields are present
         foreach ($movies['results'] as $movie) {
-            if (!isset($movie['poster_path'], $movie['title'], $movie['id'])) {
-                throw new Exception('Missing required movie fields: poster_path, title, or id');
+            if (!isset($movie['poster_pat'], $movie['title'], $movie['id'])) {
+                return json_encode(['error' => 'Missing required movie fields: poster_path, title, or id'], JSON_THROW_ON_ERROR);
             }
         }
 

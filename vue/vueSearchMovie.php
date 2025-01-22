@@ -73,8 +73,8 @@ $csrf_token = $_SESSION['csrf_token'];
 
 
     <h1>Movie Search Results</h1>
-    <?php if (isset($error['error'])): ?>
-        <p>An error occurred: <?php echo htmlspecialchars($error['error']); ?></p>
+    <?php if (isset($movies['error'])): ?>
+        <p>An error occurred: <?php echo htmlspecialchars($movies['error']); ?></p>
     <?php elseif (!empty($movies['results'])): ?>
         <div class="movies-grid">
             <?php foreach ($movies['results'] as $movie): ?>

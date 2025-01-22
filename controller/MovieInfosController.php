@@ -12,14 +12,19 @@ include "$racine/modele/MovieInfosModel.php";
 $model = new MovieInfosModel();
 $query = $_GET['id'] ?? '';
 
-try {
-    if (empty($query)) {
-        throw new Exception('Missing required movie ID');
-    }
+if (empty($query)) {
+    $movie = ['error' => 'Missing required movie ID'];
+} else {
     $response = $model->MovieInfos((int)$query);
-    $movie = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-} catch (Exception $e) {
-    $movie = ['error' => $e->getMessage()];
+    if (isset($response['error'])) {
+        $movie = $response;
+    } else {
+        try {
+            $movie = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
+        } catch (Exception $e) {
+            $movie = ['error' => $e->getMessage()];
+        }
+    }
 }
 
 include "$racine/vue/vueHeader.php";
