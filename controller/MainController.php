@@ -9,6 +9,7 @@ class MainController {
         'movieDetails' => "movieInfosController.php",
         "authentification" => "authentification.php",
         "logout" => "logout.php",
+        "profil" => "profil.php",
         "updatePassword" => "updatePassword.php",
     );
 

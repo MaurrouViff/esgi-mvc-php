@@ -1,6 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+if(session_status() == PHP_SESSION_NONE) {
+session_start();
 }
 ?>
 <!doctype html>
@@ -21,9 +21,20 @@ if (session_status() == PHP_SESSION_NONE) {
                 <a href="./?action=accueil">Accueil</a>
             </li>
             <li class="nav-item">
-                <a href="./?action=authentification"><?= isset($_SESSION['user']) ? 'Profil' : 'Connexion'; ?></a>
+                <?php
+                if (!isset($_SESSION['user'])) {
+                    echo('<a href="./?action=authentification">Connexion</a>');
+                } else {
+                    echo('<a href="./?action=profil">Profil</a>');
+                }
+                ?>
             </li>
         </ul>
     </nav>
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <?php 
+        if (isset($_SESSION['user']) && is_array($_SESSION['user']) && isset($_SESSION['user']['nom'])) {
+            echo "Bonjour, " . htmlspecialchars($_SESSION['user']['nom']) . "!";
+        } ?>
+    </div>
 </header>
-
