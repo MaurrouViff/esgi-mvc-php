@@ -92,10 +92,8 @@ $csrf_token = $_SESSION['csrf_token'];
         <p>No movies found.</p>
     <?php endif; ?>
 </body>
-<<<<<<< HEAD
+
 
 </html>
-=======
-</html>
 
->>>>>>> origin/aurelien.dev
+
