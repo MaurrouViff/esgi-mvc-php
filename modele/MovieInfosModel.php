@@ -21,7 +21,6 @@ class MovieInfosModel
 
     /**
      * @throws GuzzleException
-     * @throws Exception
      */
     public function MovieInfos(int $query = 0): false|string
     {
@@ -35,7 +34,7 @@ class MovieInfosModel
         $movie = json_decode($response->getBody(), true);
         // Check if the required fields are present
         if (!isset($movie['title'], $movie['overview'], $movie['vote_average'], $movie['release_date'], $movie['poster_path'], $movie['genres'])) {
-            throw new Exception('Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres');
+            return json_encode(['error' => 'Missing required movie fields: title, overview, vote_average, release_date, poster_path, or genres'], JSON_THROW_ON_ERROR);
         }
 
         return json_encode($movie);

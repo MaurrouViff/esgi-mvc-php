@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 
 $racine = dirname(__FILE__, 2);
 
-include "$racine/modele/SearchMovieModel.php";
+include "$racine/modele/searchMovieModel.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $csrf_token = $_GET['csrf_token'] ?? '';
@@ -23,14 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $results = null; // Initialize the $results variable
 
-    try {
-        if (empty($query)) {
-            throw new Exception('Missing search query');
+    if (empty($query)) {
+        $movies = ['error' => 'Missing search query'];
+    } else {
+        try {
+            $results = $model->searchMovie((string)$query);
+            $movies = json_decode($results, true, 512, JSON_THROW_ON_ERROR);
+        } catch (Exception $e) {
+            $movies = ['error' => $e->getMessage()];
         }
-        $results = $model->searchMovie((string)$query);
-        $movies = json_decode($results, true, 512, JSON_THROW_ON_ERROR); // Decode the JSON string to an array
-    } catch (Exception $e) {
-        $movies = ['error' => $e->getMessage()];
     }
 
     include "$racine/vue/vueSearchMovie.php";

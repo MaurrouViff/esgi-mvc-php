@@ -10,23 +10,17 @@ class MovieActionsModel
         // Load the movies JSON data
         $filePath = '../modele/film.json';
         if (!file_exists($filePath)) {
-            error_log("File not found: " . $filePath);
-            echo 'File not found';
-            return;
+            return 'File not found';
         }
 
         $jsonContent = file_get_contents($filePath);
         if ($jsonContent === false) {
-            error_log("Failed to read file: " . $filePath);
-            echo 'Failed to read file';
-            return;
+            return 'Failed to read file';
         }
 
         $data = json_decode($jsonContent, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            error_log("JSON decode error: " . json_last_error_msg());
-            echo 'JSON decode error: ' . json_last_error_msg();
-            return;
+            return 'JSON decode error: ' . json_last_error_msg();
         }
 
         $this->movies = $data['film'] ?? [];
@@ -42,10 +36,7 @@ class MovieActionsModel
         return false;
     }
 
-    /**
-     * @throws Exception
-     */
-    private function addFilmIfNotExists(int $movieId, array $movieDetails): void
+    private function addFilmIfNotExists(int $movieId, array $movieDetails): array
     {
         if (!$this->movieExists($movieId)) {
             // Add the movie to films.json
@@ -64,23 +55,23 @@ class MovieActionsModel
             $filmData['film'][] = $newFilm;
 
             if (file_put_contents($filmFilePath, json_encode($filmData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
-                error_log("Failed to write to file: " . $filmFilePath);
-                throw new Exception('Failed to write to film.json');
+                return ['error' => 'Failed to write to film.json'];
             }
         }
+        return ['success' => true];
     }
 
-    /**
-     * @throws Exception
-     */
-    public function addToFavorites(int $movieId, array $movieDetails): void
+    public function addToFavorites(int $movieId, array $movieDetails): array
     {
         $userId = $_SESSION['user']['id'] ?? null;
-        $this->addFilmIfNotExists($movieId, $movieDetails);
+        $result = $this->addFilmIfNotExists($movieId, $movieDetails);
+        if (isset($result['error'])) {
+            return $result;
+        }
 
         // Assuming the user is logged in and their ID is stored in the session
         if ($userId === null) {
-            throw new Exception('User not logged in');
+            return ['error' => 'User not logged in'];
         }
 
         // Load the users JSON data
@@ -112,21 +103,23 @@ class MovieActionsModel
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
             error_log("Failed to write to file: " . $filePath);
-            throw new Exception('Failed to write to users.json');
+            return ['error' => 'Failed to write to users.json'];
         }
+
+        return ['success' => true];
     }
 
-    /**
-     * @throws Exception
-     */
-    public function addToWatchLater(int $movieId, array $movieDetails): void
+    public function addToWatchLater(int $movieId, array $movieDetails): array
     {
         $userId = $_SESSION['user']['id'] ?? null;
-        $this->addFilmIfNotExists($movieId, $movieDetails);
+        $result = $this->addFilmIfNotExists($movieId, $movieDetails);
+        if (isset($result['error'])) {
+            return $result;
+        }
 
         // Assuming the user is logged in and their ID is stored in the session
         if ($userId === null) {
-            throw new Exception('User not logged in');
+            return ['error' => 'User not logged in'];
         }
 
         // Load the users JSON data
@@ -158,21 +151,23 @@ class MovieActionsModel
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
             error_log("Failed to write to file: " . $filePath);
-            throw new Exception('Failed to write to users.json');
+            return ['error' => 'Failed to write to users.json'];
         }
+
+        return ['success' => true];
     }
 
-    /**
-     * @throws Exception
-     */
-    public function markAsWatched(int $movieId, array $movieDetails): void
+    public function markAsWatched(int $movieId, array $movieDetails): array
     {
         $userId = $_SESSION['user']['id'] ?? null;
-        $this->addFilmIfNotExists($movieId, $movieDetails);
+        $result = $this->addFilmIfNotExists($movieId, $movieDetails);
+        if (isset($result['error'])) {
+            return $result;
+        }
 
         // Assuming the user is logged in and their ID is stored in the session
         if ($userId === null) {
-            throw new Exception('User not logged in');
+            return ['error' => 'User not logged in'];
         }
 
         // Load the users JSON data
@@ -204,20 +199,19 @@ class MovieActionsModel
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
             error_log("Failed to write to file: " . $filePath);
-            throw new Exception('Failed to write to users.json');
+            return ['error' => 'Failed to write to users.json'];
         }
+
+        return ['success' => true];
     }
 
-    /**
-     * @throws Exception
-     */
-    public function rateMovie(int $movieId, int $rating): void
+    public function rateMovie(int $movieId, int $rating): array
     {
         $userId = $_SESSION['user']['id'] ?? null;
 
         // Assuming the user is logged in and their ID is stored in the session
         if ($userId === null) {
-            throw new Exception('User not logged in');
+            return ['error' => 'User not logged in'];
         }
 
         // Load the users JSON data
@@ -246,7 +240,9 @@ class MovieActionsModel
         // Save the updated users JSON data
         if (file_put_contents($filePath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)) === false) {
             error_log("Failed to write to file: " . $filePath);
-            throw new Exception('Failed to write to users.json');
+            return ['error' => 'Failed to write to users.json'];
         }
+
+        return ['success' => true];
     }
 }

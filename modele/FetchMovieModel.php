@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 require_once(__DIR__ . '/../vendor/autoload.php');
@@ -45,10 +44,10 @@ class FetchMovieModel
         // Check if the required fields are present
         foreach ($movies['results'] as $movie) {
             if (!isset($movie['release_date'], $movie['title'], $movie['id'])) {
-                throw new Exception('Missing required movie fields: poster_path, title, or id');
+                return ['error' => 'Missing required movie fields: release_date, title, or id'];
             }
         }
-        
+
         // Return the movie data directly
         return $movies;
     }
