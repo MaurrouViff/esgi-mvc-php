@@ -24,11 +24,17 @@ class MovieActionsModel
         }
 
         $this->movies = $data['film'] ?? [];
+        return true;
     }
 
     private function movieExists(int $movieId): bool
     {
-        return array_any($this->movies, fn($movie) => $movie['id'] == $movieId);
+        foreach ($this->movies as $movie) {
+            if ($movie['id'] == $movieId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function addFilmIfNotExists(int $movieId, array $movieDetails): array
